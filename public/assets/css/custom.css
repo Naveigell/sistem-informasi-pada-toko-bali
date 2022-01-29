@@ -2,7 +2,15 @@
  *
  * You can write your CSS code here, DO NOT touch the default JavaScript file
  * because it will make it harder for you to update.
- * 
+ *
  */
 
 /*# sourceMappingURL=custom.css.map */
+.no-padding-margin {
+    padding: 0;
+    margin: 0;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
