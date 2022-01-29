@@ -11,8 +11,8 @@
             <li class="menu-header">Home</li>
             <li><a class="nav-link" href="credits.html"><i class="fas fa-home"></i> <span>Dashboard</span></a></li>
             <li class="menu-header">Users</li>
-            <li><a class="nav-link" href="credits.html"><i class="fas fa-users"></i> <span>Member</span></a></li>
-            <li><a class="nav-link" href="credits.html"><i class="fas fa-user"></i> <span>Admin</span></a></li>
+            <li><a class="nav-link" href="{{ route('admin.members.index') }}"><i class="fas fa-users"></i> <span>Member</span></a></li>
+            <li><a class="nav-link" href="{{ route('admin.admins.index') }}"><i class="fas fa-user"></i> <span>Admin</span></a></li>
             <li class="menu-header">Additional</li>
             <li><a class="nav-link" href="{{ route('admin.categories.index') }}"><i class="fas fa-list"></i> <span>Category</span></a></li>
             <li class="menu-header">Product</li>
