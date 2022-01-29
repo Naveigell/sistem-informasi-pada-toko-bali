@@ -7,6 +7,7 @@
     <title>@yield('page-title', 'Sistem Informasi')</title>
 
     @include('layouts.admin.style')
+    @stack('stack-style')
 </head>
 
 <body>
@@ -31,5 +32,6 @@
 </div>
 
 @include('layouts.admin.script')
+@stack('stack-script')
 </body>
 </html>

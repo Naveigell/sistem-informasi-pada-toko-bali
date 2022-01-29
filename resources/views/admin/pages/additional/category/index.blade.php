@@ -25,7 +25,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                            @foreach($categories as $category)
+                            @forelse($categories as $category)
                                 <tr>
                                     <td>
                                         {{ $loop->iteration }}
@@ -36,7 +36,11 @@
                                         <a class="btn btn-danger btn-action trigger--modal-delete cursor-pointer" data-url="{{ route('admin.categories.destroy', $category) }}"><i class="fas fa-trash"></i></a>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="3" style="text-align: center;">Data Empty</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>

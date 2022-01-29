@@ -16,7 +16,7 @@
             <li class="menu-header">Additional</li>
             <li><a class="nav-link" href="{{ route('admin.categories.index') }}"><i class="fas fa-list"></i> <span>Category</span></a></li>
             <li class="menu-header">Product</li>
-            <li><a class="nav-link" href="credits.html"><i class="fas fa-shopping-bag"></i> <span>Product</span></a></li>
+            <li><a class="nav-link" href="{{ route('admin.products.index') }}"><i class="fas fa-shopping-bag"></i> <span>Product</span></a></li>
             <li class="menu-header">Ulasan</li>
             <li><a class="nav-link" href="credits.html"><i class="fas fa-star"></i> <span>Ulasan</span></a></li>
             <li class="menu-header">Order & Payment</li>
