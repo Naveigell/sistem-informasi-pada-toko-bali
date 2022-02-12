@@ -31,7 +31,7 @@
                         <tbody>
                         @forelse($products as $product)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ (($products->currentPage() - 1) * $products->perPage()) + $loop->iteration }}</td>
                                 <td>
                                     <img src="{{ $product->image->url }}" alt="" width="100px;" height="100px;">
                                 </td>
@@ -54,6 +54,9 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+            <div class="mt-4">
+                {{ $products->links() }}
             </div>
         </div>
     </div>

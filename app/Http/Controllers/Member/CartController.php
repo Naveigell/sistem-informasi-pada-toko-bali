@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Member;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Member\CartRequest;
 use App\Models\Cart;
-use Illuminate\Auth\AuthenticationException;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -96,7 +96,7 @@ class CartController extends Controller
      */
     public function destroy(Cart $cart)
     {
-        throw_if($cart->user_id != auth()->id(), new AuthenticationException());
+        throw_if($cart->user_id != auth()->id(), new AuthorizationException());
 
         $cart->delete();
 
