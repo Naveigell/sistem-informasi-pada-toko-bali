@@ -12,9 +12,9 @@
     <div class="row">
         <div class="col-4">
             <img
-                src="https://media-cdn.tripadvisor.com/media/photo-s/18/1c/30/b4/photo1jpg.jpg"
+                src="{{ $product->image->url }}"
                 width="100%"
-                height="80%"
+                height="300px"
                 style="border-radius: 19px;"
                 alt="Image">
         </div>
@@ -22,12 +22,11 @@
             @if ($message = session()->get('success'))
                 <x-alert.success :message="$message"></x-alert.success>
             @endif
-            <h4>Baju pemuda pancasila bekas yang sudah pernah di pakai oleh ketuanya</h4>
-            <span style="font-size: 22px;">Rp6.000</span>
+            <h4>{{ $product->name }}</h4>
+            <span style="font-size: 22px;">Rp{{ $product->converted_price }}</span>
             <hr>
             <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium adipisci asperiores aspernatur corporis dolores nam nesciunt nisi obcaecati, quia quibusdam quidem quos suscipit voluptatum. Amet culpa cumque facere reiciendis repudiandae!
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium adipisci asperiores aspernatur corporis dolores nam nesciunt nisi obcaecati, quia quibusdam quidem quos suscipit voluptatum. Amet culpa cumque facere reiciendis repudiandae!
+                {!! nl2br(e($product->description)) !!}
             </p>
             <hr>
             <form action="{{ route('carts.store') }}" method="post">

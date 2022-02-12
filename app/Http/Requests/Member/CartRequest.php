@@ -33,11 +33,4 @@ class CartRequest extends FormRequest
             "product_id" => "required|min:1|integer",
         ];
     }
-
-    protected function passedValidation()
-    {
-        $this->request->add([
-            "user_id" => auth()->id(),
-        ]);
-    }
 }

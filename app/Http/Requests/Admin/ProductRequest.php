@@ -19,11 +19,11 @@ class ProductRequest extends FormRequest
             "stock"       => "required|integer|min:1|max:1000",
             "price"       => "required|integer|min:1000|max:10000000",
             "category"    => "required|integer|min:1",
-            "image"       => "required|image|min:100|max:10000",
+            "image"       => "required|image|min:1|max:10000",
         ];
 
         if ($this->isMethod('put')) {
-            $rules['image'] = "nullable|image|min:100|max:10000";
+            $rules['image'] = "nullable|image|min:1|max:10000";
         }
 
         return $rules;

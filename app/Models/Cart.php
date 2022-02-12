@@ -28,4 +28,14 @@ class Cart extends Model
     {
         $query->where('user_id', auth()->id());
     }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
+
+    public function member()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

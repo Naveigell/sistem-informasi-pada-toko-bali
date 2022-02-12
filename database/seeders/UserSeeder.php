@@ -18,14 +18,14 @@ class UserSeeder extends Seeder
     public function run()
     {
         $faker = Factory::create();
-        $role  = 'admin';
+        $role  = User::ROLE_ADMIN;
 
         $this->createUser('My name is user', 'user.username', 'username@gmail.com', 'user', $faker);
         $this->createUser('My name is admin', 'admin.username', 'admin@gmail.com', 'admin', $faker);
 
         for ($i = 0; $i < 23; $i++) {
             if ($i > 5) {
-                $role = 'user';
+                $role = User::ROLE_MEMBER;
             }
 
             $this->createUser($faker->name, $faker->unique()->userName, $faker->unique()->email, $role, $faker);

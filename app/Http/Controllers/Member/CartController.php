@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Member;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Member\CartRequest;
 use App\Models\Cart;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -12,11 +13,16 @@ class CartController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        $carts = Cart::memberCarts()->with('product', 'member', 'product.image')->get();
+        $total = $carts->reduce(function ($total, $item) {
+            return $total + $item->product->price * $item->quantity;
+        }, 0);
+
+        return view('member.pages.cart.index', compact('carts', 'total'));
     }
 
     /**
@@ -37,8 +43,12 @@ class CartController extends Controller
      */
     public function store(CartRequest $request)
     {
-        $cart = new Cart($request->all());
-        $cart->save();
+        Cart::query()->updateOrCreate([
+            "product_id" => $request->get('product_id'),
+            "user_id"    => auth()->id(),
+        ], [
+            "quantity"   => $request->get('quantity'),
+        ]);
 
         return back()->with('success', 'Product has been added to cart');
     }
@@ -80,11 +90,16 @@ class CartController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Cart $cart
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Throwable
      */
-    public function destroy($id)
+    public function destroy(Cart $cart)
     {
-        //
+        throw_if($cart->user_id != auth()->id(), new AuthenticationException());
+
+        $cart->delete();
+
+        return back()->with('success', 'Cart deleted successfully');
     }
 }

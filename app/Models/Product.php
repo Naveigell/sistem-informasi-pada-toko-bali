@@ -29,6 +29,11 @@ class Product extends Model
         $this->attributes['category_id'] = $value;
     }
 
+    public function getConvertedPriceAttribute(): string
+    {
+        return number_format($this->attributes['price'], 0, ',', '.');
+    }
+
     public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Category::class);
