@@ -1,6 +1,6 @@
 @extends('layouts.admin.admin')
 
-@section('content-title', 'Category')
+@section('content-title', 'Product')
 
 @section('content-body')
     @if ($message = session()->get('success'))
@@ -9,7 +9,7 @@
     <div class="col-lg-12 col-md-12 col-12 col-sm-12 no-padding-margin">
         <div class="card">
             <div class="card-header">
-                <h4>Category Lists</h4>
+                <h4>Product Lists</h4>
                 <div class="card-header-action">
                     <a href="{{ route('admin.products.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> &nbsp; Add Product</a>
                 </div>

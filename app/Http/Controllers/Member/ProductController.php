@@ -1,23 +1,21 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Member;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
-class MemberController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $members = User::member()->paginate(10);
-
-        return view('admin.pages.users.member.index', compact('members'));
+        //
     }
 
     /**
@@ -44,12 +42,14 @@ class MemberController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Product $product
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Product $product)
     {
-        //
+        $product->load('image', 'category');
+
+        return view('member.pages.product.detail', compact('product'));
     }
 
     /**

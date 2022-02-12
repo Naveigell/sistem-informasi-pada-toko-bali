@@ -20,7 +20,7 @@
             <li class="menu-header">Ulasan</li>
             <li><a class="nav-link" href="credits.html"><i class="fas fa-star"></i> <span>Ulasan</span></a></li>
             <li class="menu-header">Order & Payment</li>
-            <li><a class="nav-link" href="credits.html"><i class="fas fa-copy"></i> <span>Order</span></a></li>
+            <li><a class="nav-link" href="{{ route('admin.orders.index') }}"><i class="fas fa-copy"></i> <span>Order</span></a></li>
             <li><a class="nav-link" href="credits.html"><i class="fas fa-receipt"></i> <span>Payment</span></a></li>
         </ul>
     </aside>

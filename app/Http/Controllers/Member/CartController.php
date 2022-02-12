@@ -1,23 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Member;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Http\Requests\Member\CartRequest;
+use App\Models\Cart;
 use Illuminate\Http\Request;
 
-class MemberController extends Controller
+class CartController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $members = User::member()->paginate(10);
-
-        return view('admin.pages.users.member.index', compact('members'));
+        //
     }
 
     /**
@@ -33,12 +32,15 @@ class MemberController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param CartRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(CartRequest $request)
     {
-        //
+        $cart = new Cart($request->all());
+        $cart->save();
+
+        return back()->with('success', 'Product has been added to cart');
     }
 
     /**

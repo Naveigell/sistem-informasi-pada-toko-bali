@@ -12,7 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 /**
  * Class User
  * @package App\Models
- * @method static|Builder user()
+ * @method static|Builder member()
  * @method static|Builder admin()
  */
 class User extends Authenticatable
@@ -20,7 +20,7 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     public const ROLE_ADMIN = 'admin';
-    public const ROLE_USER = 'user';
+    public const ROLE_MEMBER = 'member';
 
     /**
      * The attributes that are mass assignable.
@@ -67,9 +67,9 @@ class User extends Authenticatable
     /**
      * @param Builder $query
      */
-    public function scopeUser($query)
+    public function scopeMember($query)
     {
-        $query->where('role', self::ROLE_USER);
+        $query->where('role', self::ROLE_MEMBER);
     }
 
     /**

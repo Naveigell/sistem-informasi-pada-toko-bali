@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('admin.pages.dashboard.index');
+Route::resource('/', \App\Http\Controllers\Member\HomeController::class)->only('index');
+Route::resource('products', \App\Http\Controllers\Member\ProductController::class)->only('show')->parameters([
+    'products' => 'product:slug'
+]);
+Route::resource('carts', \App\Http\Controllers\Member\CartController::class)->only('store');
+Route::prefix('login')->name('login.')->group(function () {
+    Route::post('/', [\App\Http\Controllers\Auth\LoginController::class, 'login'])->name('store');
+    Route::view('/', 'auth.member.login')->name('index');
 });

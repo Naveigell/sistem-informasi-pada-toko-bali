@@ -44,6 +44,7 @@
                     <div class="form-group">
                         <label>Category</label>
                         <select name="category" id="" class="form-control">
+                            <option value="-">-- Select Category --</option>
                             @foreach($categories as $category)
                                 <option @if (old('category', @$product ? $product->category->id : '') == $category->id) selected @endif value="{{ $category->id }}">{{ $category->name }}</option>
                             @endforeach

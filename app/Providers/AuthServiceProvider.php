@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\User;
+use Illuminate\Auth\SessionGuard;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -25,6 +27,10 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        SessionGuard::macro('isUser', function () {
+
+            return (auth()->check()) &&
+                   (in_array(optional(auth()->user())->role, [User::ROLE_MEMBER]));
+        });
     }
 }

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Member;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
-class MemberController extends Controller
+class HomeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +15,9 @@ class MemberController extends Controller
      */
     public function index()
     {
-        $members = User::member()->paginate(10);
+        $products = Product::with('category', 'image')->get();
 
-        return view('admin.pages.users.member.index', compact('members'));
+        return view('home', compact('products'));
     }
 
     /**

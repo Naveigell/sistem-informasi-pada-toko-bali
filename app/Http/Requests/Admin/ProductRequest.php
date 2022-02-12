@@ -13,7 +13,7 @@ class ProductRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             "name"        => "required|string|min:4|max:255",
             "description" => "required|string|min:10|max:5000",
             "stock"       => "required|integer|min:1|max:1000",
@@ -21,5 +21,11 @@ class ProductRequest extends FormRequest
             "category"    => "required|integer|min:1",
             "image"       => "required|image|min:100|max:10000",
         ];
+
+        if ($this->isMethod('put')) {
+            $rules['image'] = "nullable|image|min:100|max:10000";
+        }
+
+        return $rules;
     }
 }
