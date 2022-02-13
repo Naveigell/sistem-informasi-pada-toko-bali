@@ -78,7 +78,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-12">
-                            Total Pembayaran
+                            Total Payment
                         </div>
                         <div class="col-12">
                             Rp {{ number_format($total, 0, ',', '.') }}
@@ -88,7 +88,7 @@
                 <div class="card-footer">
                     <div class="row">
                         <div class="col-12">
-                            <button class="btn btn-success btn-block">Checkout Sekarang</button>
+                            <a href="{{ route('checkouts.index') }}" class="btn btn-success btn-block">Checkout Now!</a>
                         </div>
                     </div>
                 </div>
