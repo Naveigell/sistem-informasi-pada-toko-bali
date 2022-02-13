@@ -44,7 +44,7 @@ class CheckoutController extends Controller
      * Store a newly created resource in storage.
      *
      * @param CheckoutRequest $request
-     * @return \Illuminate\Http\Response
+     * @return string
      */
     public function store(CheckoutRequest $request)
     {
@@ -56,7 +56,7 @@ class CheckoutController extends Controller
         $cost = [];
 
         // if service is COD, take cost from database,
-        if (in_array($request->get('shipping_service'), [Shipping::SERVICE_COD])) {
+        if (in_array($request->get('shipping_service'), [Shipping::SERVICE_OUR_COURIER])) {
             $cost['cost'] = ShippingCost::query()->find($request->get('area_id'))->cost;
         }
 
@@ -89,8 +89,10 @@ class CheckoutController extends Controller
         } catch (\Exception $exception) {
             DB::rollBack();
 
-            dd($exception->getMessage());
+            return "Something error in our server";
         }
+
+        return redirect(route('checkouts.success'));
     }
 
     /**

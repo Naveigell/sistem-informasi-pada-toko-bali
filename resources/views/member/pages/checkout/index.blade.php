@@ -94,7 +94,7 @@
                             <select name="shipping_service" id="shipping-service" class="form-control">
                                 <option value="">-- Nothing Selected --</option>
                                 <option value="regular">Reguler</option>
-                                <option value="cod">COD</option>
+                                <option value="our-courier">Our Courier</option>
                             </select>
                         </div>
                         <div class="form-row" id="reguler-container">
@@ -132,7 +132,7 @@
                                 <input type="text" class="form-control" id="shipping-cost" value="0" disabled>
                             </div>
                         </div>
-                        <div class="form-row" id="cod-container">
+                        <div class="form-row" id="our-courier-container">
                             <div class="form-group col-6">
                                 <label for="area_id">Area</label>
                                 <select name="area_id" id="area_id" class="form-control">
@@ -146,14 +146,14 @@
                                 </small>
                             </div>
                             <div class="form-group col-6">
-                                <label for="cod-cost">COD Cost</label>
+                                <label for="our-courier-cost">Shipping Cost</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
                                             Rp.
                                         </div>
                                     </div>
-                                    <input type="text" class="form-control pe-none" id="cod-cost" value="0">
+                                    <input type="text" class="form-control pe-none" id="our-courier-cost" value="0">
                                 </div>
                             </div>
                         </div>
@@ -171,23 +171,23 @@
 @push('stack-script')
     <script>
         $('#shipping-service').on('change', function (e) {
-            if (e.target.value === 'cod') {
+            if (e.target.value === 'our-courier') {
                 $('#reguler-container').hide();
-                $('#cod-container').show();
+                $('#our-courier-container').show();
             } else if (e.target.value === 'regular') {
                 $('#reguler-container').show();
-                $('#cod-container').hide();
+                $('#our-courier-container').hide();
             } else {
-                $('#cod-container').hide();
+                $('#our-courier-container').hide();
                 $('#reguler-container').hide();
             }
         });
 
         $('#area_id').on('change', function (e) {
-            $('#cod-cost').val($(this).find(':selected').data('cost'));
+            $('#our-courier-cost').val($(this).find(':selected').data('cost'));
         });
 
-        $('#cod-container').hide();
+        $('#our-courier-container').hide();
         $('#reguler-container').hide();
     </script>
 @endpush

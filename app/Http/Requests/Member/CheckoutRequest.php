@@ -20,7 +20,7 @@ class CheckoutRequest extends FormRequest
         return [
             "address"          => "required|string|min:4|max:255",
             "phone"            => "required|digits_between:7,15",
-            "shipping_service" => "required|string|in:" . join(',', [Shipping::SERVICE_COD, Shipping::SERVICE_REGULAR]),
+            "shipping_service" => "required|string|in:" . join(',', [Shipping::SERVICE_OUR_COURIER, Shipping::SERVICE_REGULAR]),
             "area_id"          => "required|integer|in:" . $areas->join(','),
         ];
     }

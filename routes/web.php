@@ -18,6 +18,7 @@ Route::resource('products', \App\Http\Controllers\Member\ProductController::clas
     'products' => 'product:slug'
 ]);
 Route::resource('carts', \App\Http\Controllers\Member\CartController::class)->only('index', 'store', 'destroy');
+Route::view('/checkouts/success', 'member.pages.checkout.success')->name('checkouts.success');
 Route::resource('checkouts', \App\Http\Controllers\Member\CheckoutController::class)->only('index', 'store');
 Route::prefix('login')->name('login.')->group(function () {
     Route::post('/', [\App\Http\Controllers\Auth\LoginController::class, 'login'])->name('store');
