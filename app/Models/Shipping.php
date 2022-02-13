@@ -15,4 +15,13 @@ class Shipping extends Model
 
     const SERVICE_REGULAR     = 'regular';
     const SERVICE_OUR_COURIER = 'our-courier';
+
+    /**
+     * available courier for regular shipment
+     */
+    const SHIPPING_REGULAR_COURIER = [
+        "jne"  => "Jalur Nugraha Ekakurir (JNE)",
+        "tiki" => "Citra Van Titipan Kilat (TIKI)",
+        "pos"  => "POS Indonesia (POS)",
+    ];
 }

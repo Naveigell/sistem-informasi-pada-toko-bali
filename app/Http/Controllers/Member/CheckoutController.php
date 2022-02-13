@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Member;
 
+use App\Helper\RajaOngkir;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Member\CheckoutRequest;
 use App\Models\Cart;
@@ -25,9 +26,11 @@ class CheckoutController extends Controller
             return $total + $item->product->price * $item->quantity;
         }, 0);
 
-        $areas = ShippingCost::all();
+        $areas     = ShippingCost::all();
+        $provinces = RajaOngkir::provinces();
+        $couriers  = Shipping::SHIPPING_REGULAR_COURIER;
 
-        return view('member.pages.checkout.index', compact('carts', 'total', 'areas'));
+        return view('member.pages.checkout.index', compact('carts', 'total', 'areas', 'provinces', 'couriers'));
     }
 
     /**

@@ -102,8 +102,9 @@
                                 <label for="province">Province</label>
                                 <select name="province" id="province" class="form-control">
                                     <option value="">-- Nothing Selected --</option>
-                                    <option value="reguler">Bali</option>
-                                    <option value="cod">Jawa Timur</option>
+                                    @foreach($provinces as $province)
+                                        <option value="{{ $province['province_id'] }}">{{ $province['province'] }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="form-group col-6">
@@ -118,9 +119,9 @@
                                 <label for="courier">Courier</label>
                                 <select name="courier" id="courier" class="form-control">
                                     <option value="">-- Nothing Selected --</option>
-                                    <option value="reguler">JNE</option>
-                                    <option value="cod">TIKI</option>
-                                    <option value="cod">POS</option>
+                                    @foreach($couriers as $courierAlias => $courierName)
+                                        <option value="{{ $courierAlias }}">{{ $courierName }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="form-group col-6">
@@ -188,7 +189,39 @@
         });
 
         $('#our-courier-container').hide();
-        $('#reguler-container').hide();
+        $('#reguler-container').show();
+
+        $('#province').on('change', function () {
+            $.ajax({
+                url: '/shipping-cost/province/' + $(this).val() + '/cities',
+                method: 'GET',
+                success: function (cities){
+                    $('#city').empty();
+
+                    $('#city').append(`<option>-- Nothing Selected --</option>`);
+
+                    for (const city of cities) {
+                        $('#city').append(`<option value="${city.city_id}">${city.type} ${city.city_name}</option>`)
+                    }
+                },
+                error: function (result) {
+                    console.error(result)
+                }
+            });
+        });
+
+        $('#city').on('change', function () {
+            $.ajax({
+                url: '/shipping-cost/cost/' + $(this).val(),
+                method: 'GET',
+                success: function (result){
+                    console.log(result);
+                },
+                error: function (result) {
+                    console.error(result)
+                }
+            });
+        });
     </script>
 @endpush
 

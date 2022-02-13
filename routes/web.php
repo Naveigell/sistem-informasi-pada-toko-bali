@@ -24,3 +24,9 @@ Route::prefix('login')->name('login.')->group(function () {
     Route::post('/', [\App\Http\Controllers\Auth\LoginController::class, 'login'])->name('store');
     Route::view('/', 'auth.member.login')->name('index');
 });
+
+Route::prefix('/shipping-cost')->name('shipping-cost.')->group(function () {
+    Route::get('/province/{provinceId}', [\App\Http\Controllers\Member\ShippingCostController::class, 'province'])->name('province');
+    Route::get('/province/{provinceId}/cities', [\App\Http\Controllers\Member\ShippingCostController::class, 'cities'])->name('province.cities');
+    Route::get('/cost/{cityId}', [\App\Http\Controllers\Member\ShippingCostController::class, 'cost'])->name('cost');
+});
