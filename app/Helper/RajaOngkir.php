@@ -35,7 +35,7 @@ final class RajaOngkir
             "courier"     => $courier,
         ]);
 
-        return $response->json();
+        return $response->json('rajaongkir.results');
     }
 
     /**

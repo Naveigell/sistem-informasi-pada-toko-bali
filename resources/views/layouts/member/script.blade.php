@@ -11,8 +11,16 @@
 <script src="{{ asset('assets/js/scripts.js') }}"></script>
 <script src="{{ asset('assets/js/custom.js') }}"></script>
 <script>
+    jQuery.fn.existsWithValue = function() {
+        return this.length && this.val().length;
+    }
+
     $('.trigger--modal-delete').on('click', function () {
         $('#modal--delete').modal('show');
         $('#modal--delete form').attr('action', $(this).data('url'));
-    })
+    });
+
+    function convertNumberWithDot(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    }
 </script>

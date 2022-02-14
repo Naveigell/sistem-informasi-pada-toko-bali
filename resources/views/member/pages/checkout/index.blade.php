@@ -1,5 +1,18 @@
 @extends('layouts.member.member')
 
+@push('stack-style')
+    <style>
+        .selectgroup-button {
+            height: 130px;
+        }
+
+        .selectgroup span {
+            display: block;
+            text-align: left;
+        }
+    </style>
+@endpush
+
 @section('content-body')
     <div class="row">
         <div class="col-12">
@@ -62,7 +75,6 @@
         </div>
         <div class="col-12">
             <div class="card">
-                @dump($errors->all())
                 <div class="card-header">
                     <h4>Shipping Address</h4>
                 </div>
@@ -111,8 +123,6 @@
                                 <label for="city">City</label>
                                 <select name="city" id="city" class="form-control">
                                     <option value="">-- Nothing Selected --</option>
-                                    <option value="reguler">Bali</option>
-                                    <option value="cod">Jawa Timur</option>
                                 </select>
                             </div>
                             <div class="form-group col-6">
@@ -129,8 +139,10 @@
                                 <input type="text" class="form-control" id="zip" placeholder="Ex: 81234">
                             </div>
                             <div class="form-group col-12">
-                                <label for="shipping-cost">Shipping Cost</label>
-                                <input type="text" class="form-control" id="shipping-cost" value="0" disabled>
+                                <label for="shipping-type">Shipping Cost</label>
+                                <select name="shipping_type" id="shipping-type" class="form-control">
+                                    <option value="">-- Nothing Selected --</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-row" id="our-courier-container">
@@ -158,7 +170,6 @@
                                 </div>
                             </div>
                         </div>
-                        <br><br>
                     </div>
                     <div class="card-footer">
                         <button class="btn btn-lg btn-success btn-block">Checkout</button>
@@ -211,17 +222,37 @@
         });
 
         $('#city').on('change', function () {
+            if ($('#courier').existsWithValue()) {
+                calculateShippingCost($(this).val(), $('#courier').val());
+            }
+        });
+
+        $('#courier').on('change', function () {
+            if ($('#city').existsWithValue()) {
+                calculateShippingCost($('#city').val(), $(this).val());
+            }
+        });
+
+        function calculateShippingCost(city, courier) {
             $.ajax({
-                url: '/shipping-cost/cost/' + $(this).val(),
+                url: `/shipping-cost/cost/${city}/courier/${courier}`,
                 method: 'GET',
-                success: function (result){
-                    console.log(result);
+                success: function (results){
+                    $('#shipping-type').empty();
+
+                    for (const cost in results[0].costs) {
+
+                        if (!results[0].costs.hasOwnProperty(cost))
+                            continue;
+
+                        $('#shipping-type').append(`<option value="${cost}">${results[0].costs[cost].service} - ${results[0].costs[cost].description} (Rp. ${convertNumberWithDot(results[0].costs[cost].cost[0].value)})</option>`)
+                    }
                 },
                 error: function (result) {
                     console.error(result)
                 }
             });
-        });
+        }
     </script>
 @endpush
 
