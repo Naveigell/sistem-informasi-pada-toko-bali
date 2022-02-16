@@ -77,7 +77,6 @@
             <div class="card">
                 <div class="card-header">
                     <h4>Shipping Address</h4>
-                    @dump($errors->all())
                 </div>
                 <form action="{{ route('checkouts.store') }}" method="post">
                     @csrf
@@ -95,69 +94,115 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="address">Address</label>
-                                <input type="text" class="form-control" name="address" id="address" placeholder="Ex: Jln Raya ...">
+                                <input type="text" class="form-control @error('address') is-invalid @enderror" name="address" id="address" placeholder="Ex: Jln Raya ..." value="{{ old('address') }}">
+                                @error('address')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="phone">Phone</label>
-                                <input type="text" name="phone" class="form-control" id="phone" placeholder="Ex: 081234">
+                                <input type="text" name="phone" class="form-control @error('phone') is-invalid @enderror" id="phone" placeholder="Ex: 081234" value="{{ old('phone') }}">
+                                @error('phone')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="shipping-service">Shipping Service</label>
-                            <select name="shipping_service" id="shipping-service" class="form-control">
+                            <select name="shipping_service" id="shipping-service" class="form-control @error('shipping_service') is-invalid @enderror">
                                 <option value="">-- Nothing Selected --</option>
                                 <option value="regular">Reguler</option>
                                 <option value="our-courier">Our Courier</option>
                             </select>
+                            @error('shipping_service')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="form-row" id="reguler-container">
                             <div class="form-group col-6">
                                 <label for="province">Province</label>
-                                <select name="province" id="province" class="form-control">
+                                <select name="province" id="province" class="form-control @error('province') is-invalid @enderror">
                                     <option value="">-- Nothing Selected --</option>
                                     @foreach($provinces as $province)
                                         <option value="{{ $province['province_id'] }}">{{ $province['province'] }}</option>
                                     @endforeach
                                 </select>
+                                @error('province')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                             <div class="form-group col-6">
                                 <label for="city">City</label>
-                                <select name="city" id="city" class="form-control">
+                                <select name="city" id="city" class="form-control @error('city') is-invalid @enderror">
                                     <option value="">-- Nothing Selected --</option>
                                 </select>
+                                @error('city')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                             <div class="form-group col-6">
                                 <label for="courier">Courier</label>
-                                <select name="courier" id="courier" class="form-control">
+                                <select name="courier" id="courier" class="form-control @error('courier') is-invalid @enderror">
                                     <option value="">-- Nothing Selected --</option>
                                     @foreach($couriers as $courierAlias => $courierName)
                                         <option value="{{ $courierAlias }}">{{ $courierName }}</option>
                                     @endforeach
                                 </select>
+                                @error('courier')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                             <div class="form-group col-6">
                                 <label for="zip">Zip</label>
-                                <input type="text" name="zip" class="form-control" id="zip" placeholder="Ex: 81234">
+                                <input type="text" name="zip" class="form-control @error('zip') is-invalid @enderror" id="zip" placeholder="Ex: 81234" value="{{ old('zip') }}">
+                                @error('zip')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                             <div class="form-group col-12">
                                 <label for="shipping-type">Shipping Cost</label>
-                                <select name="shipping_type" id="shipping-type" class="form-control">
+                                <select name="shipping_type" id="shipping-type" class="form-control @error('shipping_type') is-invalid @enderror">
                                     <option value="">-- Nothing Selected --</option>
                                 </select>
+                                @error('shipping_type')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                         </div>
                         <div class="form-row" id="our-courier-container">
                             <div class="form-group col-6">
                                 <label for="area_id">Area</label>
-                                <select name="area_id" id="area_id" class="form-control">
+                                <select name="area_id" id="area_id" class="form-control @error('area_id') is-invalid @enderror">
                                     <option value="" data-cost="0">-- Nothing Selected --</option>
                                     @foreach($areas as $area)
                                         <option value="{{ $area->id }}" data-cost="{{ number_format($area->cost, 0, ',', '.') }}">{{ $area->area }}</option>
                                     @endforeach
                                 </select>
-                                <small id="help-area" class="form-text text-muted">
-                                    Please ensure your area is covered.
-                                </small>
+                                @if ($errors->has('area_id'))
+                                    <div class="invalid-feedback">
+                                        {{ $errors->first('area_id') }}
+                                    </div>
+                                @else
+                                    <small id="help-area" class="form-text text-muted">
+                                        Please ensure your area is covered.
+                                    </small>
+                                @endif
                             </div>
                             <div class="form-group col-6">
                                 <label for="our-courier-cost">Shipping Cost</label>
@@ -201,7 +246,7 @@
         });
 
         $('#our-courier-container').hide();
-        $('#reguler-container').show();
+        $('#reguler-container').hide();
 
         $('#province').on('change', function () {
             $.ajax({
@@ -246,7 +291,9 @@
                         if (!results[0].costs.hasOwnProperty(cost))
                             continue;
 
-                        $('#shipping-type').append(`<option value="${cost}">${results[0].costs[cost].service} - ${results[0].costs[cost].description} (Rp. ${convertNumberWithDot(results[0].costs[cost].cost[0].value)})</option>`)
+                        let estimationDate = String(results[0].costs[cost].cost[0].etd).replace(' HARI', '') + ' day';
+
+                        $('#shipping-type').append(`<option value="${cost}">${results[0].costs[cost].service} - ${results[0].costs[cost].description} (Rp. ${convertNumberWithDot(results[0].costs[cost].cost[0].value)})&nbsp;&nbsp;[Etd: ${estimationDate}]</option>`)
                     }
                 },
                 error: function (result) {

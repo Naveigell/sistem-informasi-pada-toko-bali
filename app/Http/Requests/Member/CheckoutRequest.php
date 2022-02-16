@@ -25,25 +25,36 @@ class CheckoutRequest extends FormRequest
             "shipping_service" => "required|string|in:" . join(',', [Shipping::SERVICE_OUR_COURIER, Shipping::SERVICE_REGULAR]),
         ];
 
+        // different rule between regular shipping service and own courier shipping
+        // service
         if (in_array($this->get('shipping_service'), [Shipping::SERVICE_REGULAR])) {
 
-            $weight = Cart::memberCarts()->with('product')->get()
-                                         ->reduce(function ($total, $cart) {
-                                             return $total + ($cart->product->weight * $cart->quantity);
-                                         }, 0);
+            // we need check if request has city and courier first
+            // because if request doesn't have city and courier,
+            // it will validate the city and courier
+            if ($this->get('city') && $this->get('courier')) {
 
-            // set the cost that we get from external API
-            $this->cost = RajaOngkir::cost($this->get('city'), $weight, $this->get('courier'));
+                $weight = Cart::memberCarts()->with('product')->get()
+                                             ->reduce(function ($total, $cart) {
+                                                 return $total + ($cart->product->weight * $cart->quantity);
+                                             }, 0);
 
-            // clamp shipping type, and prevent shipping type not less than 0
-            $shippingTypeMaximum    = max(count($this->cost[0]['costs']) - 1, 0);
+                // set the cost that we get from external API
+                $this->cost = RajaOngkir::cost($this->get('city'), $weight, $this->get('courier'));
 
-            $rules['zip']           = "required|integer|digits_between:3,8";
-            $rules['city']          = "required|integer|min:1";
-            $rules['courier']       = "required|string|in:" . join(',', array_keys(Shipping::SHIPPING_REGULAR_COURIER));
-            $rules['shipping_type'] = "required|integer|min:0|max:{$shippingTypeMaximum}";
+                // clamp shipping type, and prevent shipping type not less than 0
+                $shippingTypeMaximum    = max(count($this->cost[0]['costs']) - 1, 0);
 
-        } else {
+                $rules['shipping_type'] = "required|integer|min:0|max:{$shippingTypeMaximum}";
+            }
+
+            $rules['zip']      = "required|integer|digits_between:3,8";
+            $rules['city']     = "required|integer|min:1";
+            $rules['courier']  = "required|string|in:" . join(',', array_keys(Shipping::SHIPPING_REGULAR_COURIER));
+            $rules['province'] = "required|integer|min:1";
+
+        } else if (in_array($this->get('shipping_service'), [Shipping::SERVICE_OUR_COURIER])) {
+
             $areas = ShippingCost::query()->pluck('id');
 
             $rules['area_id'] = "required|integer|in:" . $areas->join(',');

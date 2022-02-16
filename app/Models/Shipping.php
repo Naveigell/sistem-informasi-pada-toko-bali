@@ -10,7 +10,7 @@ class Shipping extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'email', 'address', 'phone', 'shipping_service', 'area_id', 'cost',
+        'name', 'email', 'address', 'phone', 'shipping_service', 'province', 'city', 'courier', 'zip', 'area_id', 'cost',
     ];
 
     const SERVICE_REGULAR     = 'regular';
