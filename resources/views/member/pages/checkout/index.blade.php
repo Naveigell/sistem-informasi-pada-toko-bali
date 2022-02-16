@@ -77,6 +77,7 @@
             <div class="card">
                 <div class="card-header">
                     <h4>Shipping Address</h4>
+                    @dump($errors->all())
                 </div>
                 <form action="{{ route('checkouts.store') }}" method="post">
                     @csrf
@@ -136,7 +137,7 @@
                             </div>
                             <div class="form-group col-6">
                                 <label for="zip">Zip</label>
-                                <input type="text" class="form-control" id="zip" placeholder="Ex: 81234">
+                                <input type="text" name="zip" class="form-control" id="zip" placeholder="Ex: 81234">
                             </div>
                             <div class="form-group col-12">
                                 <label for="shipping-type">Shipping Cost</label>

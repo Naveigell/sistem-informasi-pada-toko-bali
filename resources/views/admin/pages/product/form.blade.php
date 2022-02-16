@@ -73,6 +73,22 @@
                             </div>
                         @enderror
                     </div>
+                    <div class="form-group">
+                        <label>Weight</label>
+                        <div class="input-group">
+                            <input type="number" min="0" class="form-control @error('weight') is-invalid @enderror" name="weight" value="{{ old('weight', @$product ? $product->weight : '') }}">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    gr
+                                </div>
+                            </div>
+                            @error('weight')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
                     <button type="submit" class="btn btn-primary">Save</button>
                 </div>
             </form>

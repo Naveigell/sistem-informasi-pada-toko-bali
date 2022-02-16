@@ -56,18 +56,11 @@ class CheckoutController extends Controller
             "email" => auth()->user()->email,
         ];
 
-        $cost = [];
-
-        // if service is COD, take cost from database,
-        if (in_array($request->get('shipping_service'), [Shipping::SERVICE_OUR_COURIER])) {
-            $cost['cost'] = ShippingCost::query()->find($request->get('area_id'))->cost;
-        }
-
         DB::beginTransaction();
         try {
 
             // save shipping first
-            $shipping = new Shipping(array_merge($userInformation, $request->validated(), $cost));
+            $shipping = new Shipping(array_merge($userInformation, $request->validated(), $request->only('cost')));
             $shipping->save();
 
             // move member carts into order

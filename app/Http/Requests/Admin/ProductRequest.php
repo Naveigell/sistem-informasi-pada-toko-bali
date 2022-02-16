@@ -18,6 +18,7 @@ class ProductRequest extends FormRequest
             "description" => "required|string|min:10|max:5000",
             "stock"       => "required|integer|min:1|max:1000",
             "price"       => "required|integer|min:1000|max:10000000",
+            "weight"      => "required|integer|min:0|max:20000",
             "category"    => "required|integer|min:1",
             "image"       => "required|image|min:1|max:10000",
         ];

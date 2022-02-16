@@ -15,7 +15,7 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
-        'category', 'name', 'description', 'stock', 'price'
+        'category', 'name', 'description', 'stock', 'price', 'weight',
     ];
 
     public function setNameAttribute($value)

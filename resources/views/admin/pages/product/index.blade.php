@@ -23,7 +23,8 @@
                             <th class="col-2">Image</th>
                             <th class="col-2">Name</th>
                             <th class="col-1">Category</th>
-                            <th class="col-2">Stock</th>
+                            <th class="col-1">Stock</th>
+                            <th class="col-1">Weight</th>
                             <th class="col-2">Price</th>
                             <th class="col-2">Action</th>
                         </tr>
@@ -40,6 +41,7 @@
                                     <div class="badge badge-success">{{ $product->category->name }}</div>
                                 </td>
                                 <td>{{ $product->stock }}</td>
+                                <td>{{ $product->weight }} gr</td>
                                 <td>Rp. {{ number_format($product->price, 0, ',', '.') }}</td>
                                 <td>
                                     <a href="{{ route('admin.products.edit', $product) }}" class="btn btn-primary btn-action mr-1" title="" data-original-title="Edit"><i class="fas fa-pencil-alt"></i></a>
