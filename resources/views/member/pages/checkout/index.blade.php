@@ -1,18 +1,5 @@
 @extends('layouts.member.member')
 
-@push('stack-style')
-    <style>
-        .selectgroup-button {
-            height: 130px;
-        }
-
-        .selectgroup span {
-            display: block;
-            text-align: left;
-        }
-    </style>
-@endpush
-
 @section('content-body')
     <div class="row">
         <div class="col-12">

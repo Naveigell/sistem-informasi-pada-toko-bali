@@ -60,7 +60,7 @@ class CheckoutController extends Controller
         try {
 
             // save shipping first
-            $shipping = new Shipping(array_merge($userInformation, $request->all(), $request->only('cost')));
+            $shipping = new Shipping(array_merge($userInformation, $request->all(), $request->only('cost'), ["user_id" => auth()->id()]));
             $shipping->save();
 
             // move member carts into order

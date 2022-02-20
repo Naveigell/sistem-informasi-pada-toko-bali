@@ -28,6 +28,16 @@ final class RajaOngkir
 
     public static function cost($destinationId, int $weight, string $courier)
     {
+        return self::costRequest($destinationId,  $weight, $courier, 'rajaongkir.results');
+    }
+
+    public static function destinationDetails($destinationId, int $weight, string $courier)
+    {
+        return self::costRequest($destinationId,  $weight, $courier, 'rajaongkir.destination_details');
+    }
+
+    private static function costRequest($destinationId, int $weight, string $courier, string $responseKey)
+    {
         $response = self::headers()->post(self::fullDomain() . '/cost', [
             "destination" => $destinationId,
             "origin"      => config('shipment.shipment_origin_city_id'),
@@ -35,7 +45,7 @@ final class RajaOngkir
             "courier"     => $courier,
         ]);
 
-        return $response->json('rajaongkir.results');
+        return $response->json($responseKey);
     }
 
     /**

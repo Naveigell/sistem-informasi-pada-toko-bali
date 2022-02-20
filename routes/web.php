@@ -20,6 +20,13 @@ Route::resource('products', \App\Http\Controllers\Member\ProductController::clas
 Route::resource('carts', \App\Http\Controllers\Member\CartController::class)->only('index', 'store', 'destroy');
 Route::view('/checkouts/success', 'member.pages.checkout.success')->name('checkouts.success');
 Route::resource('checkouts', \App\Http\Controllers\Member\CheckoutController::class)->only('index', 'store');
+
+Route::prefix('/payments/{shipping}/pay')->group(function () {
+    Route::get('/', [\App\Http\Controllers\Member\PaymentController::class, 'editPayment'])->name('payments.shipping.pay.edit');
+    Route::put('/', [\App\Http\Controllers\Member\PaymentController::class, 'updatePayment'])->name('payments.shipping.pay.update');
+});
+
+Route::resource('payments', \App\Http\Controllers\Member\PaymentController::class);
 Route::prefix('login')->name('login.')->group(function () {
     Route::post('/', [\App\Http\Controllers\Auth\LoginController::class, 'login'])->name('store');
     Route::view('/', 'auth.member.login')->name('index');

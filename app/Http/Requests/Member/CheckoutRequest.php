@@ -10,7 +10,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class CheckoutRequest extends FormRequest
 {
-    private $cost;
+    private $cost, $weight;
 
     /**
      * Get the validation rules that apply to the request.
@@ -40,7 +40,8 @@ class CheckoutRequest extends FormRequest
                                              }, 0);
 
                 // set the cost that we get from external API
-                $this->cost = RajaOngkir::cost($this->get('city'), $weight, $this->get('courier'));
+                $this->cost   = RajaOngkir::cost($this->get('city'), $weight, $this->get('courier'));
+                $this->weight = $weight;
 
                 // clamp shipping type, and prevent shipping type not less than 0
                 $shippingTypeMaximum    = max(count($this->cost[0]['costs']) - 1, 0);
@@ -67,6 +68,18 @@ class CheckoutRequest extends FormRequest
 
     protected function passedValidation()
     {
+        // calculate the total payment of member order
+        $totalPayment = Cart::memberCarts()->with('product')->get()
+                                                                    ->reduce(function ($total, $cart) {
+                                                                        return $total + ($cart->product->price * $cart->quantity);
+                                                                    }, 0);
+
+        // add total and weight into request
+        $this->request->add([
+            "total"  => $totalPayment,
+            "weight" => $this->weight,
+        ]);
+
         // if shipping service is regular, get cost from external API
         // else get from own area_id
         if (in_array($this->get('shipping_service'), [Shipping::SERVICE_REGULAR])) {
