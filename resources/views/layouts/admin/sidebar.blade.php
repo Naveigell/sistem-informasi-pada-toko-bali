@@ -9,20 +9,20 @@
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Home</li>
-            <li><a class="nav-link" href="credits.html"><i class="fas fa-home"></i> <span>Dashboard</span></a></li>
+            <li class="@if (request()->routeIs('*dashboard*')) active @endif"><a class="nav-link" href="credits.html"><i class="fas fa-home"></i> <span>Dashboard</span></a></li>
             <li class="menu-header">Users</li>
-            <li><a class="nav-link" href="{{ route('admin.members.index') }}"><i class="fas fa-users"></i> <span>Member</span></a></li>
-            <li><a class="nav-link" href="{{ route('admin.admins.index') }}"><i class="fas fa-user"></i> <span>Admin</span></a></li>
+            <li class="@if (request()->routeIs('*members*')) active @endif"><a class="nav-link" href="{{ route('admin.members.index') }}"><i class="fas fa-users"></i> <span>Member</span></a></li>
+            <li class="@if (request()->routeIs('*admins*')) active @endif"><a class="nav-link" href="{{ route('admin.admins.index') }}"><i class="fas fa-user"></i> <span>Admin</span></a></li>
             <li class="menu-header">Additional</li>
-            <li><a class="nav-link" href="{{ route('admin.categories.index') }}"><i class="fas fa-list"></i> <span>Category</span></a></li>
-            <li><a class="nav-link" href="{{ route('admin.shipping-costs.index') }}"><i class="fas fa-truck"></i> <span>Shipping Cost</span></a></li>
+            <li class="@if (request()->routeIs('*categories*')) active @endif"><a class="nav-link" href="{{ route('admin.categories.index') }}"><i class="fas fa-list"></i> <span>Category</span></a></li>
+            <li class="@if (request()->routeIs('*shipping-costs*')) active @endif"><a class="nav-link" href="{{ route('admin.shipping-costs.index') }}"><i class="fas fa-truck"></i> <span>Shipping Cost</span></a></li>
             <li class="menu-header">Product</li>
-            <li><a class="nav-link" href="{{ route('admin.products.index') }}"><i class="fas fa-shopping-bag"></i> <span>Product</span></a></li>
+            <li class="@if (request()->routeIs('*products*')) active @endif"><a class="nav-link" href="{{ route('admin.products.index') }}"><i class="fas fa-shopping-bag"></i> <span>Product</span></a></li>
             <li class="menu-header">Ulasan</li>
-            <li><a class="nav-link" href="credits.html"><i class="fas fa-star"></i> <span>Ulasan</span></a></li>
+            <li class="@if (request()->routeIs('*reviews*')) active @endif"><a class="nav-link" href="credits.html"><i class="fas fa-star"></i> <span>Ulasan</span></a></li>
             <li class="menu-header">Order & Payment</li>
-            <li><a class="nav-link" href="{{ route('admin.orders.index') }}"><i class="fas fa-copy"></i> <span>Order</span></a></li>
-            <li><a class="nav-link" href="credits.html"><i class="fas fa-receipt"></i> <span>Payment</span></a></li>
+            <li class="@if (request()->routeIs('*orders*')) active @endif"><a class="nav-link" href="{{ route('admin.orders.index') }}"><i class="fas fa-copy"></i> <span>Order</span></a></li>
+            <li class="@if (request()->routeIs('*payments*')) active @endif"><a class="nav-link" href="credits.html"><i class="fas fa-receipt"></i> <span>Payment</span></a></li>
         </ul>
     </aside>
 </div>

@@ -1,12 +1,13 @@
-@extends('layouts.member.member')
+@extends('layouts.admin.admin')
+
+@section('content-title')
+    <h1>Edit Order</h1>
+@endsection
 
 @section('content-body')
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-header">
-                    <h4>Orders</h4>
-                </div>
                 <div class="collapse show" id="mycard-collapse" style="">
                     <div class="card-body">
                         @if ($message = session()->get('success'))
@@ -58,7 +59,9 @@
                                 <div class="row mt-5">
                                     <div class="col-6">
                                         <h4>Order Information</h4>
-                                        <form action="">
+                                        <form action="{{ route('admin.shippings.update', $shipping) }}" method="post">
+                                            @csrf
+                                            @method('put')
                                             <div class="form-group">
                                                 <label for="name">Name</label>
                                                 <input type="text" class="form-control" name="name" id="name" disabled value="{{ $shipping->name }}">
@@ -95,6 +98,59 @@
                                                 <label for="zip">Zip</label>
                                                 <input type="text" class="form-control" name="zip" id="zip" disabled value="{{ $shipping->zip }}">
                                             </div>
+                                            {{-- if member have not pay the orders or payment status is invalid --}}
+                                            @if($shipping->payment->status === array_keys(\App\Models\Payment::STATUSES)[1])
+                                                <div class="form-group">
+                                                    <label for="approve">Approve</label>
+                                                    <select class="form-control @error('approve') is-invalid @enderror" name="approve" id="approve">
+                                                        <x-nothing-selected></x-nothing-selected>
+                                                        @foreach(\App\Models\Payment::STATUSES as $status => $statusName)
+                                                            <option @if (old('approve') === $status) selected @endif value="{{ $status }}">{{ $statusName }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('approve')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                            {{-- if member payment is valid --}}
+                                            @else
+                                                <div class="form-group">
+                                                    <label for="tracking_id">Enter tracking ID.</label>
+                                                    <input type="text" class="form-control @error('tracking_id') is-invalid @enderror" @if ($shipping->tracking_id) disabled @endif id="tracking_id" name="tracking_id" placeholder="Ex: 0030039xxxxx" value="{{ old('tracking_id', $shipping->tracking_id) }}">
+                                                    @if($errors->has('tracking_id'))
+                                                        <div class="invalid-feedback">
+                                                            {{ $errors->first('tracking_id') }}
+                                                        </div>
+                                                    @else
+                                                        <small class="form-text text-muted">
+                                                            @if ($shipping->tracking_id)
+                                                                This tracking id will help member to track their orders.
+                                                            @else
+                                                                Please enter valid tracking id. It's will help member to track their orders. <br> This will display once.
+                                                            @endif
+                                                        </small>
+                                                    @endif
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="shipping_status">Shipping Status</label>
+                                                    <select class="form-control @error('shipping_status') is-invalid @enderror" name="shipping_status" id="shipping_status">
+                                                        <x-nothing-selected></x-nothing-selected>
+                                                        @foreach(\App\Models\Shipping::SHIPPING_STATUSES as $status => $statusName)
+                                                            <option @if (old('shipping_status', $shipping->shipping_status) === $status) selected @endif value="{{ $status }}">{{ $statusName }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('shipping_status')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                            @endif
+                                            <div class="form-group">
+                                                <button class="btn btn-success">Submit</button>
+                                            </div>
                                         </form>
                                     </div>
                                     <div class="col-6">
@@ -114,69 +170,24 @@
                                                 <label for="payment-total">Total Payment To Pay</label>
                                                 <input type="text" class="form-control" name="shipping_total" id="payment-total" disabled value="Rp. {{ $shipping->total_payment }}">
                                             </div>
-                                            @if(!$shipping->payment)
-                                                <div class="form-group">
-                                                    <label for="sender-bank">Your Bank Name</label>
-                                                    <input type="text" class="form-control @error('sender_bank') is-invalid @enderror" name="sender_bank" id="sender-bank" placeholder="Ex. BRI, BCA">
-                                                    @error('sender_bank')
-                                                    <div class="invalid-feedback">
-                                                        {{ $message }}
-                                                    </div>
-                                                    @enderror
+                                            <div class="form-group">
+                                                <label for="sender-bank">Your Bank Name</label>
+                                                <input type="text" class="form-control" name="sender_bank" id="sender-bank" disabled value="{{ $shipping->payment->sender_bank }}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="sender-account-number">Your Bank Account Number</label>
+                                                <input type="text" class="form-control" name="sender_account_number" id="sender-account-number" disabled value="{{ $shipping->payment->sender_account_number }}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="merchant-bank">Merchant Bank</label>
+                                                <input type="text" class="form-control" name="merchant_bank" id="merchant-bank" disabled value="{{ $shipping->payment->merchant_bank }}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="payment-proof">Payment Proof</label>
+                                                <div style="border: 1px dashed #cccccc; border-radius: 5px;">
+                                                    <img src="{{ $shipping->payment->payment_proof_url }}" alt="" width="100%" height="100%">
                                                 </div>
-                                                <div class="form-group">
-                                                    <label for="sender-account-number">Your Bank Account Number</label>
-                                                    <input type="text" class="form-control @error('sender_account_number') is-invalid @enderror" name="sender_account_number" id="sender-account-number" placeholder="Ex. 1733019xxxx">
-                                                    @error('sender_account_number')
-                                                    <div class="invalid-feedback">
-                                                        {{ $message }}
-                                                    </div>
-                                                    @enderror
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="merchant-bank">Choose Bank To Send</label>
-                                                    <select type="text" class="form-control @error('merchant_bank') is-invalid @enderror" name="merchant_bank" id="merchant-bank">
-                                                        <x-nothing-selected></x-nothing-selected>
-                                                        @foreach(\App\Models\Payment::BANK_ACCOUNT as $bank => $account)
-                                                            <option value="{{ $bank }}">{{ $account }} {!! str_repeat('&nbsp;', 3) !!} ({{ strtoupper($bank) }})</option>
-                                                        @endforeach
-                                                    </select>
-                                                    @error('merchant_bank')
-                                                    <div class="invalid-feedback">
-                                                        {{ $message }}
-                                                    </div>
-                                                    @enderror
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="payment-proof">Payment Upload</label>
-                                                    <input type="file" class="form-control @error('payment_proof') is-invalid @enderror" id="payment-proof" name="payment_proof">
-                                                    @error('payment_proof')
-                                                    <div class="invalid-feedback">
-                                                        {{ $message }}
-                                                    </div>
-                                                    @enderror
-                                                </div>
-                                                <button class="btn btn-success" type="submit">Submit Payment</button>
-                                            @else
-                                                <div class="form-group">
-                                                    <label for="sender-bank">Your Bank Name</label>
-                                                    <input type="text" class="form-control" name="sender_bank" id="sender-bank" disabled value="{{ $shipping->payment->sender_bank }}">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="sender-account-number">Your Bank Account Number</label>
-                                                    <input type="text" class="form-control" name="sender_account_number" id="sender-account-number" disabled value="{{ $shipping->payment->sender_account_number }}">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="merchant-bank">Merchant Bank</label>
-                                                    <input type="text" class="form-control" name="merchant_bank" id="merchant-bank" disabled value="{{ $shipping->payment->merchant_bank }}">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="payment-proof">Payment Proof</label>
-                                                    <div style="border: 1px dashed #cccccc; border-radius: 5px;">
-                                                        <img src="{{ $shipping->payment->payment_proof_url }}" alt="" width="100%" height="100%">
-                                                    </div>
-                                                </div>
-                                            @endif
+                                            </div>
                                         </form>
                                     </div>
                                 </div>
@@ -187,6 +198,4 @@
             </div>
         </div>
     </div>
-    <input type="file" multiple="multiple" class="dz-hidden-input" style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;">
 @endsection
-

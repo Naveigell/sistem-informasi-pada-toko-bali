@@ -101,7 +101,7 @@
                         <div class="form-group">
                             <label for="shipping-service">Shipping Service</label>
                             <select name="shipping_service" id="shipping-service" class="form-control @error('shipping_service') is-invalid @enderror">
-                                <option value="">-- Nothing Selected --</option>
+                                <x-nothing-selected></x-nothing-selected>
                                 <option value="regular">Reguler</option>
                                 <option value="our-courier">Our Courier</option>
                             </select>
@@ -115,7 +115,7 @@
                             <div class="form-group col-6">
                                 <label for="province">Province</label>
                                 <select name="province" id="province" class="form-control @error('province') is-invalid @enderror">
-                                    <option value="">-- Nothing Selected --</option>
+                                    <x-nothing-selected></x-nothing-selected>
                                     @foreach($provinces as $province)
                                         <option value="{{ $province['province_id'] }}">{{ $province['province'] }}</option>
                                     @endforeach
@@ -129,7 +129,7 @@
                             <div class="form-group col-6">
                                 <label for="city">City</label>
                                 <select name="city" id="city" class="form-control @error('city') is-invalid @enderror">
-                                    <option value="">-- Nothing Selected --</option>
+                                    <x-nothing-selected></x-nothing-selected>
                                 </select>
                                 @error('city')
                                     <div class="invalid-feedback">
@@ -140,7 +140,7 @@
                             <div class="form-group col-6">
                                 <label for="courier">Courier</label>
                                 <select name="courier" id="courier" class="form-control @error('courier') is-invalid @enderror">
-                                    <option value="">-- Nothing Selected --</option>
+                                    <x-nothing-selected></x-nothing-selected>
                                     @foreach($couriers as $courierAlias => $courierName)
                                         <option value="{{ $courierAlias }}">{{ $courierName }}</option>
                                     @endforeach
@@ -163,7 +163,7 @@
                             <div class="form-group col-12">
                                 <label for="shipping-type">Shipping Cost</label>
                                 <select name="shipping_type" id="shipping-type" class="form-control @error('shipping_type') is-invalid @enderror">
-                                    <option value="">-- Nothing Selected --</option>
+                                    <x-nothing-selected></x-nothing-selected>
                                 </select>
                                 @error('shipping_type')
                                     <div class="invalid-feedback">

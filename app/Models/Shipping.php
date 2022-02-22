@@ -10,11 +10,12 @@ use Illuminate\Database\Eloquent\Model;
  * Class Shipping
  * @property array|mixed destination_details
  * @property mixed city
- * @property mixed weight
- * @property mixed courier
+ * @property int weight
+ * @property string courier
  * @property mixed shipping_service
  * @property mixed id
- * @property mixed payment
+ * @property Payment payment
+ * @property string tracking_id
  * @package App\Models
  * @method static|Builder memberShipping()
  */
@@ -23,11 +24,17 @@ class Shipping extends Model
     use HasFactory;
 
     protected $fillable = [
-        "user_id", 'name', 'email', 'address', 'phone', 'shipping_service', 'province', 'city', 'courier', 'zip', 'area_id', 'total', 'cost', 'weight',
+        'user_id', 'tracking_id', 'name', 'email', 'address', 'phone', 'shipping_service', 'province', 'city', 'courier', 'zip',
+        'area_id', 'total', 'cost', 'weight', 'shipping_status',
     ];
 
     const SERVICE_REGULAR     = 'regular';
     const SERVICE_OUR_COURIER = 'our-courier';
+
+    const SHIPPING_STATUSES = [
+        "on_delivery" => "On Delivery",
+        "standing"    => "Standing",
+    ];
 
     /**
      * available courier for regular shipment

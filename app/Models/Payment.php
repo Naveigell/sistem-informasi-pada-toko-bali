@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * @property mixed status
+ */
 class Payment extends Model
 {
     use HasFactory;
@@ -18,6 +21,11 @@ class Payment extends Model
     public const BANK_ACCOUNT = [
         "bri" => "1702918293",
         "bca" => "1293740129",
+    ];
+
+    public const STATUSES = [
+        "valid"   => "Valid",
+        "invalid" => "Invalid",
     ];
 
     /**

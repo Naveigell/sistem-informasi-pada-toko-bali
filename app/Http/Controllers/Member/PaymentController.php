@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Member;
 
-use App\AppendRajaOngkir;
+use App\Traits\AppendRajaOngkir;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Member\PaymentRequest;
 use App\Models\Shipping;
