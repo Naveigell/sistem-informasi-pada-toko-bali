@@ -35,13 +35,13 @@
                 @if (auth()->check())
                     <div class="row">
                         <div class="col-1">
-                            <button type="button" class="btn btn-primary"><i class="fa fa-minus"></i></button>
+                            <button id="decrement" type="button" class="btn btn-primary"><i class="fa fa-minus"></i></button>
                         </div>
                         <div class="col-2">
-                            <input class="form-control" type="text" value="1" name="quantity">
+                            <input id="quantity" class="form-control" type="text" value="1" name="quantity">
                         </div>
                         <div class="col-1">
-                            <button type="button" class="btn btn-primary"><i class="fa fa-plus"></i></button>
+                            <button id="increment" type="button" class="btn btn-primary"><i class="fa fa-plus"></i></button>
                         </div>
                         <div class="col-4">
                             <button type="submit" class="btn btn-success"><i class="fa fa-shopping-cart"></i> Add to cart</button>
@@ -66,7 +66,7 @@
                 @endif
                 <div class="row mt-2">
                     <div class="col-12">
-                        <span>Stock • 500 buah</span>
+                        <span>Stock • {{ $product->stock }} buah</span>
                     </div>
                 </div>
             </form>
@@ -114,3 +114,29 @@
         </div>
     </div>
 @endsection
+
+@push('stack-script')
+    <script>
+        const quantity = $('#quantity');
+
+        $('#decrement').on('click', function () {
+            quantity.val(Math.max(1, parseInt(quantity.val()) - 1));
+        });
+
+        $('#increment').on('click', function () {
+            quantity.val(Math.min(parseInt(quantity.val()) + 1, {{ $product->stock }}));
+        });
+
+        quantity.on('keyup', function (evt) {
+            let value = parseInt(evt.target.value);
+
+            if (!isNaN(value)) {
+                quantity.val(value);
+            } else if (value === '') {
+
+            } else {
+                quantity.val(1);
+            }
+        })
+    </script>
+@endpush

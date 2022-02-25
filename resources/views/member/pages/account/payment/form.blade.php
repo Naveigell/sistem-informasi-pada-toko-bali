@@ -95,6 +95,17 @@
                                                 <label for="zip">Zip</label>
                                                 <input type="text" class="form-control" name="zip" id="zip" disabled value="{{ $shipping->zip }}">
                                             </div>
+                                            @if ($shipping->payment && $shipping->shipping_status)
+                                                <div class="form-group">
+                                                    <label for="delivery_status">Delivery Status</label>
+                                                    <div class="mt-3">
+                                                        <i class="fa fa-truck" style="font-size: 180px;"></i>
+                                                    </div>
+                                                    <div class="mt-4">
+                                                        <span class="badge badge-success">{{ \App\Models\Shipping::SHIPPING_STATUSES[$shipping->shipping_status] }}</span>
+                                                    </div>
+                                                </div>
+                                            @endif
                                         </form>
                                     </div>
                                     <div class="col-6">
