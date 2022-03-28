@@ -99,13 +99,13 @@
                                                 <input type="text" class="form-control" name="zip" id="zip" disabled value="{{ $shipping->zip }}">
                                             </div>
                                             {{-- if member have not pay the orders or payment status is invalid --}}
-                                            @if($shipping->payment->status === array_keys(\App\Models\Payment::STATUSES)[1])
+                                            @if(!optional($shipping->payment)->status || optional($shipping->payment)->status === array_keys(\App\Models\Payment::STATUSES)[1])
                                                 <div class="form-group">
                                                     <label for="approve">Approve</label>
                                                     <select class="form-control @error('approve') is-invalid @enderror" name="approve" id="approve">
                                                         <x-nothing-selected></x-nothing-selected>
                                                         @foreach(\App\Models\Payment::STATUSES as $status => $statusName)
-                                                            <option @if (old('approve') === $status) selected @endif value="{{ $status }}">{{ $statusName }}</option>
+                                                            <option @if (old('approve', optional($shipping->payment)->status) === $status) selected @endif value="{{ $status }}">{{ $statusName }}</option>
                                                         @endforeach
                                                     </select>
                                                     @error('approve')
@@ -171,22 +171,26 @@
                                                 <input type="text" class="form-control" name="shipping_total" id="payment-total" disabled value="Rp. {{ $shipping->total_payment }}">
                                             </div>
                                             <div class="form-group">
-                                                <label for="sender-bank">Your Bank Name</label>
-                                                <input type="text" class="form-control" name="sender_bank" id="sender-bank" disabled value="{{ $shipping->payment->sender_bank }}">
+                                                <label for="sender-bank">Member Bank Name</label>
+                                                <input type="text" class="form-control" name="sender_bank" id="sender-bank" disabled value="{{ optional($shipping->payment)->sender_bank ?? '-' }}">
                                             </div>
                                             <div class="form-group">
-                                                <label for="sender-account-number">Your Bank Account Number</label>
-                                                <input type="text" class="form-control" name="sender_account_number" id="sender-account-number" disabled value="{{ $shipping->payment->sender_account_number }}">
+                                                <label for="sender-account-number">Member Bank Account Number</label>
+                                                <input type="text" class="form-control" name="sender_account_number" id="sender-account-number" disabled value="{{ optional($shipping->payment)->sender_account_number ?? '-' }}">
                                             </div>
                                             <div class="form-group">
-                                                <label for="merchant-bank">Merchant Bank</label>
-                                                <input type="text" class="form-control" name="merchant_bank" id="merchant-bank" disabled value="{{ $shipping->payment->merchant_bank }}">
+                                                <label for="merchant-bank">Member Merchant Bank</label>
+                                                <input type="text" class="form-control" name="merchant_bank" id="merchant-bank" disabled value="{{ optional($shipping->payment)->merchant_bank ?? '-' }}">
                                             </div>
                                             <div class="form-group">
                                                 <label for="payment-proof">Payment Proof</label>
-                                                <div style="border: 1px dashed #cccccc; border-radius: 5px;">
-                                                    <img src="{{ $shipping->payment->payment_proof_url }}" alt="" width="100%" height="100%">
-                                                </div>
+                                                @if(optional($shipping->payment)->payment_proof_url)
+                                                    <div style="border: 1px dashed #cccccc; border-radius: 5px;">
+                                                        <img src="{{ optional($shipping->payment)->payment_proof_url }}" alt="" width="100%" height="100%">
+                                                    </div>
+                                                @else
+                                                    <input type="text" class="form-control" id="payment-proof" disabled value="-">
+                                                @endif
                                             </div>
                                         </form>
                                     </div>

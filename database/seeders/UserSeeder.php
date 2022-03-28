@@ -20,8 +20,8 @@ class UserSeeder extends Seeder
         $faker = Factory::create();
         $role  = User::ROLE_ADMIN;
 
-        $this->createUser('My name is user', 'user.username', 'username@gmail.com', 'user', $faker);
-        $this->createUser('My name is admin', 'admin.username', 'admin@gmail.com', 'admin', $faker);
+        $this->createUser('My name is user', 'user.username', 'username@gmail.com', User::ROLE_MEMBER, $faker);
+        $this->createUser('My name is admin', 'admin.username', 'admin@gmail.com', User::ROLE_ADMIN, $faker);
 
         for ($i = 0; $i < 23; $i++) {
             if ($i > 5) {

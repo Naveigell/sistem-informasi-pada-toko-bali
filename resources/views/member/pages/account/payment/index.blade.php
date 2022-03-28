@@ -29,10 +29,14 @@
                                     <td>
                                         @if (!$shipping->payment)
                                             <span class="badge badge-danger">unpaid</span>
+                                        @elseif($shipping->payment->status === array_keys(\App\Models\Payment::STATUSES)[1])
+                                            <span class="badge badge-danger">invalid</span>
                                         @elseif ($shipping->shipping_status)
                                             @if($shipping->shipping_status)
                                                 <span class="badge badge-success">{{ \App\Models\Shipping::SHIPPING_STATUSES[$shipping->shipping_status] }}</span>
                                             @endif
+                                        @elseif($shipping->payment->status === array_keys(\App\Models\Payment::STATUSES)[0])
+                                            <span class="badge badge-success">waiting for delivery</span>
                                         @else
                                             <span class="badge badge-primary">waiting</span>
                                         @endif
@@ -40,16 +44,18 @@
                                     <td>
                                         @if ($shipping->payment)
                                             {{ $shipping->tracking_id ?? '-' }}
+                                        @else
+                                            -
                                         @endif
                                     </td>
                                     <td>{{ $shipping->address }}</td>
                                     <td>{{ $shipping->courier_full_name }}</td>
                                     <td>Rp. {{ $shipping->converted_cost }}</td>
                                     <td>
-                                        @if ($shipping->shipping_service)
-                                            <a href="{{ route('shippings.edit', $shipping) }}" class="btn btn-info"><i class="fa fa-eye"></i></a>
+                                        @if ($shipping->shipping_service && !$shipping->payment)
+                                            <a href="{{ route('payments.shipping.pay.edit', $shipping) }}" class="btn btn-warning"><i class="fa fa-wallet"></i></a>
                                         @else
-                                            <a href="{{ route('payments.shipping.pay.edit', $shipping) }}" class="btn btn-warning"><i class="fa fa-pen"></i></a>
+                                            <a href="{{ route('shippings.edit', $shipping) }}" class="btn btn-info"><i class="fa fa-eye"></i></a>
                                         @endif
                                     </td>
                                 </tr>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ShippingRequest;
 use App\Models\Payment;
+use App\Models\Product;
 use App\Models\Shipping;
 use App\Traits\AppendRajaOngkir;
 use Illuminate\Http\Request;
@@ -81,21 +82,43 @@ class ShippingController extends Controller
      */
     public function update(ShippingRequest $request, Shipping $shipping)
     {
-        $shipping->load('payment');
+        $shipping->load('payment', 'orders');
 
-        // if payment is valid, we need the tracking id
-        if ($shipping->payment->status === array_keys(Payment::STATUSES)[0]) {
-            $requestData = ["shipping_status"];
+        \DB::beginTransaction();
 
-            // if tracking id is not available yet
-            if (!$shipping->tracking_id) {
-                $requestData[] = "tracking_id";
+        try {
+
+            // if payment is valid, we need the tracking id
+            if ($shipping->payment->status === array_keys(Payment::STATUSES)[0]) {
+                $requestData = ["shipping_status"];
+
+                // if tracking id is not available yet
+                if (!$shipping->tracking_id) {
+                    $requestData[] = "tracking_id";
+                }
+
+                $shipping->fill($request->only($requestData));
+                $shipping->save();
+            } else {
+                $shipping->payment()->update($request->only('status'));
             }
 
-            $shipping->fill($request->only($requestData));
-            $shipping->save();
-        } else {
-            $shipping->payment()->update($request->only('status'));
+            // if payment status is valid, decrement the product stock
+            if (in_array($shipping->payment->status, [array_keys(Payment::STATUSES)[0]])) {
+
+                $orders        = $shipping->orders->pluck('quantity', 'product_id');
+                $productStocks = Product::query()->whereIn('id', $shipping->orders->pluck('product_id')->toArray())->pluck('stock', 'id')->map(function ($stock, $id) use ($orders) {
+                    return $stock - $orders[$id];
+                });
+
+                $shipping->bulkUpdate($productStocks->toArray(), 'stock', 'products');
+            }
+
+            \DB::commit();
+        } catch (\Exception $e) {
+            \DB::rollBack();
+
+            dd($e->getMessage());
         }
 
         return redirect(route('admin.orders.index'))->with('success', trans('action.update.success', ['module' => 'Shipping approve']));

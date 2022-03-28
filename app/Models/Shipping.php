@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\ModelBulkUpdate;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -16,12 +17,14 @@ use Illuminate\Database\Eloquent\Model;
  * @property mixed id
  * @property Payment payment
  * @property string tracking_id
+ * @property \Illuminate\Database\Eloquent\Collection<Order> orders
  * @package App\Models
  * @method static|Builder memberShipping()
+ * @method Builder bulkUpdate(array $values, string $column, string $table = null)
  */
 class Shipping extends Model
 {
-    use HasFactory;
+    use HasFactory, ModelBulkUpdate;
 
     protected $fillable = [
         'user_id', 'tracking_id', 'name', 'email', 'address', 'phone', 'shipping_service', 'province', 'city', 'courier', 'zip',

@@ -58,7 +58,7 @@
                                 </td>
                                 <td>
                                     {{-- if status valid --}}
-                                    @if($shipping->payment->status === array_keys(\App\Models\Payment::STATUSES)[0])
+                                    @if(optional($shipping->payment)->status === array_keys(\App\Models\Payment::STATUSES)[0])
                                         <a href="{{ route('admin.shippings.edit', $shipping) }}" class="btn btn-success btn-action mr-1" title="" data-original-title="Edit"><i class="fas fa-truck"></i></a>
                                     @else
                                         <a href="{{ route('admin.shippings.edit', $shipping) }}" class="btn btn-warning btn-action mr-1" title="" data-original-title="Edit"><i class="fas fa-pencil-alt"></i></a>

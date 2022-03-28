@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class LoginController extends Controller
@@ -11,6 +12,11 @@ class LoginController extends Controller
     public function login(LoginRequest $request)
     {
         if (auth()->attempt($request->only('email', 'password'))) {
+
+            if (in_array(auth()->user()->role, [User::ROLE_ADMIN])) {
+                return redirect(route('admin.orders.index'));
+            }
+
             return redirect(route('index'));
         }
 
