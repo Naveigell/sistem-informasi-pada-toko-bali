@@ -3,10 +3,15 @@
 namespace App\Http\Controllers\Member;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Member\ShippingRequest;
+use App\Models\Shipping;
+use App\Traits\AppendRajaOngkir;
 use Illuminate\Http\Request;
 
 class ShippingController extends Controller
 {
+    use AppendRajaOngkir;
+
     /**
      * Display a listing of the resource.
      *
@@ -52,24 +57,28 @@ class ShippingController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Shipping $shipping
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Shipping $shipping)
     {
-        //
+        $this->appendRajaOngkir($shipping);
+
+        return view('member.pages.account.shipping.form', compact('shipping'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param ShippingRequest $request
+     * @param Shipping $shipping
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, $id)
+    public function update(ShippingRequest $request, Shipping $shipping)
     {
-        //
+        $shipping->update($request->validated());
+
+        return redirect(route('payments.index'))->with('success', trans('action.update.success', ['module' => 'Shipping']));
     }
 
     /**

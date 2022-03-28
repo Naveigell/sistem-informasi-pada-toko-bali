@@ -37,6 +37,7 @@ class Shipping extends Model
     const SHIPPING_STATUSES = [
         "on_delivery" => "On Delivery",
         "standing"    => "Standing",
+        "arrived"     => "Arrived",
     ];
 
     /**

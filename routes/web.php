@@ -39,31 +39,3 @@ Route::prefix('/shipping-cost')->name('shipping-cost.')->group(function () {
     Route::get('/province/{provinceId}/cities', [\App\Http\Controllers\Member\ShippingCostController::class, 'cities'])->name('province.cities');
     Route::get('/cost/{cityId}/courier/{courier}', [\App\Http\Controllers\Member\ShippingCostController::class, 'cost'])->name('cost.courier');
 });
-
-Route::get('/test', function () {
-    $orders   = \App\Models\Order::query()->pluck('quantity', 'product_id');
-    $products = \App\Models\Product::query()->pluck('stock', 'id');
-
-    $products = $products->map(function ($stock, $productId) use ($orders) {
-        return [
-            "id"    => $productId,
-            "stock" => $stock - $orders[$productId],
-        ];
-    });
-
-    $cases = [];
-    $ids = [];
-    $params = [];
-
-    foreach ($products as $key => $product) {
-        $cases[]  = "WHEN {$product['id']} then ?";
-        $params[] = $product['stock'];
-        $ids[]    = $product['id'];
-    }
-
-    $ids      = implode(',', $ids);
-    $cases    = implode(' ', $cases);
-    $params[] = Carbon::now();
-
-    dd("UPDATE `test` SET `stock` = CASE `id` {$cases} END, `updated_at` = ? WHERE `id` in ({$ids})", $params);
-});
