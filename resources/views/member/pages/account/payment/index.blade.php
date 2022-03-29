@@ -43,7 +43,7 @@
                                     </td>
                                     <td>
                                         @if ($shipping->payment)
-                                            {{ $shipping->tracking_id ?? '-' }}
+                                            {{ $shipping->tracking_id ?? '-'  }}
                                         @else
                                             -
                                         @endif
@@ -52,7 +52,9 @@
                                     <td>{{ $shipping->courier_full_name }}</td>
                                     <td>Rp. {{ $shipping->converted_cost }}</td>
                                     <td>
-                                        @if ($shipping->shipping_service && !$shipping->payment)
+                                        @if($shipping->shipping_status === array_keys(\App\Models\Shipping::SHIPPING_STATUSES)[2])
+                                            <a href="{{ route('shippings.products.reviews.index', $shipping) }}" class="btn btn-success"><i class="fa fa-star"></i></a>
+                                        @elseif ($shipping->shipping_service && !$shipping->payment)
                                             <a href="{{ route('payments.shipping.pay.edit', $shipping) }}" class="btn btn-warning"><i class="fa fa-wallet"></i></a>
                                         @else
                                             <a href="{{ route('shippings.edit', $shipping) }}" class="btn btn-info"><i class="fa fa-eye"></i></a>

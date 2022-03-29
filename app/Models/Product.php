@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * Class Product
  * @package App\Models
  * @property \App\Models\ProductImage $image
+ * @property int id
  */
 class Product extends Model
 {

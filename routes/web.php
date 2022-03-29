@@ -22,6 +22,14 @@ Route::resource('carts', \App\Http\Controllers\Member\CartController::class)->on
 Route::view('/checkouts/success', 'member.pages.checkout.success')->name('checkouts.success');
 Route::resource('checkouts', \App\Http\Controllers\Member\CheckoutController::class)->only('index', 'store');
 
+Route::prefix('/shippings/{shipping}')->name('shippings.')->group(function () {
+    Route::prefix('products/reviews')->name('products.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\Member\ReviewController::class, 'index'])->name('reviews.index');
+    });
+    Route::prefix('products/{product}')->name('products.')->group(function () {
+        Route::resource('reviews', \App\Http\Controllers\Member\ReviewController::class)->except('index');
+    });
+});
 Route::resource('shippings', \App\Http\Controllers\Member\ShippingController::class);
 Route::prefix('/payments/{shipping}/pay')->group(function () {
     Route::get('/', [\App\Http\Controllers\Member\PaymentController::class, 'editPayment'])->name('payments.shipping.pay.edit');
