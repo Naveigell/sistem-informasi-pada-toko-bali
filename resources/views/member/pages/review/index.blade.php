@@ -28,7 +28,11 @@
                                         <td>Rp. {{ $order->product->converted_price }}</td>
                                         <td>{{ $order->quantity }}</td>
                                         <td>
-                                            <a href="{{ route('shippings.products.reviews.create', [$shipping, $order->product]) }}" class="btn btn-warning"><i class="fa fa-star"></i></a>
+                                            @if(!in_array($order->product->id, $reviewsIds))
+                                                <a href="{{ route('shippings.products.reviews.create', [$shipping, $order->product]) }}" class="btn btn-warning"><i class="fa fa-star"></i></a>
+                                            @else
+                                                <button class="btn btn-success"><i class="fa fa-check"></i></button>
+                                            @endif
                                         </td>
                                     </tr>
                                 @empty

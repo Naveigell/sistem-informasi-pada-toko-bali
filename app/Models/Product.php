@@ -25,6 +25,11 @@ class Product extends Model
         $this->attributes['slug'] = \Str::slug($value);
     }
 
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
     public function setCategoryAttribute($value)
     {
         $this->attributes['category_id'] = $value;

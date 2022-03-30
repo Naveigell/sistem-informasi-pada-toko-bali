@@ -80,34 +80,22 @@
                 </div>
                 <div class="card-body">
                     <ul class="list-unstyled">
-                        <li class="media">
-                            <img class="mr-3" src="https://getstisla.com/dist/img/example-image-50.jpg" alt="Generic placeholder image">
-                            <div class="media-body">
-                                <h5 class="mt-0 mb-1">Username</h5>
-                                <span>
-                                <i class="fa fa-star" style="color: darkorange;"></i>
-                                <i class="fa fa-star" style="color: darkorange;"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </span>
-                                <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus oringilla. Donec lacinia congue felis in faucibus.</p>
-                            </div>
-                        </li>
-                        <li class="media my-2">
-                            <img class="mr-3" src="https://getstisla.com/dist/img/example-image-50.jpg" alt="Generic placeholder image">
-                            <div class="media-body">
-                                <h5 class="mt-0 mb-1">Username</h5>
-                                <span>
-                                <i class="fa fa-star" style="color: darkorange;"></i>
-                                <i class="fa fa-star" style="color: darkorange;"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </span>
-                                <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus oringilla. Donec lacinia congue felis in faucibus.</p>
-                            </div>
-                        </li>
+                        @foreach($product->reviews as $review)
+                            <li class="media">
+                                <img class="mr-3" src="https://getstisla.com/dist/img/example-image-50.jpg" alt="Generic placeholder image">
+                                <div class="media-body">
+                                    <h5 class="mt-0 mb-1">{{ $review->user->username }}</h5>
+                                    <span>
+                                        @for($i = 1; $i <= 5; $i++)
+                                            <i class="fa fa-star" @if ($i <= $review->star) style="color: darkorange;" @endif></i>
+                                        @endfor
+                                    </span>
+                                    <p>
+                                        {{ $review->description }}
+                                    </p>
+                                </div>
+                            </li>
+                        @endforeach
                     </ul>
                 </div>
             </div>

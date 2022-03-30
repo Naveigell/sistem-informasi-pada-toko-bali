@@ -47,7 +47,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        $product->load('image', 'category');
+        $product->load('image', 'category', 'reviews.user');
 
         return view('member.pages.product.detail', compact('product'));
     }

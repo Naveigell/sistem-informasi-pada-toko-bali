@@ -21,7 +21,9 @@ class ReviewController extends Controller
     {
         $shipping->load('orders.product.image');
 
-        return view('member.pages.review.index', compact('shipping'));
+        $reviewsIds = Review::query()->where('shipping_id', $shipping->id)->pluck('product_id')->toArray();
+
+        return view('member.pages.review.index', compact('shipping', 'reviewsIds'));
     }
 
     /**
@@ -42,17 +44,20 @@ class ReviewController extends Controller
      * @param ReviewRequest $request
      * @param Shipping $shipping
      * @param Product $product
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
     public function store(ReviewRequest $request, Shipping $shipping, Product $product)
     {
         Review::create(array_merge(
             $request->validated(),
             [
-                "product_id" => $product->id,
-                "user_id"    => auth()->id(),
+                "product_id"  => $product->id,
+                "shipping_id" => $shipping->id,
+                "user_id"     => auth()->id(),
             ]
         ));
+
+        return redirect(route('shippings.products.reviews.index', [$shipping]))->with('success', trans('action.store.success', ['module' => 'Review']));
     }
 
     /**
