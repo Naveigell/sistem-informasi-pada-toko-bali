@@ -5,7 +5,9 @@ use Illuminate\Support\Facades\Route;
 Route::resource('shipping-costs', \App\Http\Controllers\Admin\ShippingCostController::class)->parameters([
     'shipping-costs' => 'shippingCost',
 ]);
+Route::resource('suggestions', \App\Http\Controllers\Admin\SuggestionController::class);
 Route::resource('categories', \App\Http\Controllers\Admin\CategoryController::class);
+Route::resource('dashboard', \App\Http\Controllers\Admin\DashboardController::class);
 Route::resource('shippings', \App\Http\Controllers\Admin\ShippingController::class);
 Route::resource('products', \App\Http\Controllers\Admin\ProductController::class);
 Route::resource('members', \App\Http\Controllers\Admin\MemberController::class);

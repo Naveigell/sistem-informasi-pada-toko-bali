@@ -47,3 +47,5 @@ Route::prefix('/shipping-cost')->name('shipping-cost.')->group(function () {
     Route::get('/province/{provinceId}/cities', [\App\Http\Controllers\Member\ShippingCostController::class, 'cities'])->name('province.cities');
     Route::get('/cost/{cityId}/courier/{courier}', [\App\Http\Controllers\Member\ShippingCostController::class, 'cost'])->name('cost.courier');
 });
+
+Route::resource('suggestions', \App\Http\Controllers\Member\SuggestionController::class);

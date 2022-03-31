@@ -104,7 +104,7 @@ class ShippingController extends Controller
             }
 
             // if payment status is valid, decrement the product stock
-            if (in_array($shipping->payment->status, [array_keys(Payment::STATUSES)[0]])) {
+            if (in_array(optional($shipping->payment)->status, [array_keys(Payment::STATUSES)[0]])) {
 
                 $orders        = $shipping->orders->pluck('quantity', 'product_id');
                 $productStocks = Product::query()->whereIn('id', $shipping->orders->pluck('product_id')->toArray())->pluck('stock', 'id')->map(function ($stock, $id) use ($orders) {

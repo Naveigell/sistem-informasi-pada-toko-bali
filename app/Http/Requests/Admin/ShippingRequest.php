@@ -27,7 +27,7 @@ class ShippingRequest extends FormRequest
         ];
 
         // if payment is valid, we need the tracking id
-        if ($shipping->payment->status === array_keys(Payment::STATUSES)[0]) {
+        if (optional($shipping->payment)->status === array_keys(Payment::STATUSES)[0]) {
             $rules = [
                 "shipping_status" => "required|string|in:" . join(',', array_keys(Shipping::SHIPPING_STATUSES)),
             ];
