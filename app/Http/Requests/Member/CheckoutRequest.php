@@ -25,6 +25,12 @@ class CheckoutRequest extends FormRequest
             "shipping_service" => "required|string|in:" . join(',', [Shipping::SERVICE_OUR_COURIER, Shipping::SERVICE_REGULAR]),
         ];
 
+        // calculate the weight of products
+        $weight = Cart::memberCarts()->with('product')->get()
+                                    ->reduce(function ($total, $cart) {
+                                        return $total + ($cart->product->weight * $cart->quantity);
+                                    }, 0);
+
         // different rule between regular shipping service and own courier shipping
         // service
         if (in_array($this->get('shipping_service'), [Shipping::SERVICE_REGULAR])) {
@@ -41,7 +47,6 @@ class CheckoutRequest extends FormRequest
 
                 // set the cost that we get from external API
                 $this->cost   = RajaOngkir::cost($this->get('city'), $weight, $this->get('courier'));
-                $this->weight = $weight;
 
                 // clamp shipping type, and prevent shipping type not less than 0
                 $shippingTypeMaximum    = max(count($this->cost[0]['costs']) - 1, 0);
@@ -62,6 +67,9 @@ class CheckoutRequest extends FormRequest
 
             $this->cost = ShippingCost::query()->findOrFail($this->get('area_id'))->cost;
         }
+
+        // set the weight to current weight
+        $this->weight = $weight;
 
         return $rules;
     }

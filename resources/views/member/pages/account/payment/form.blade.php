@@ -81,19 +81,19 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="province">Province</label>
-                                                <input type="text" class="form-control" name="province" id="province" disabled value="{{ $shipping->destination_details['province'] }}">
+                                                <input type="text" class="form-control" name="province" id="province" disabled value="{{ $shipping->destination_details ? $shipping->destination_details['province'] : '-' }}">
                                             </div>
                                             <div class="form-group">
                                                 <label for="city">City</label>
-                                                <input type="text" class="form-control" name="city" id="city" disabled value="{{ $shipping->destination_details['city_name'] }}">
+                                                <input type="text" class="form-control" name="city" id="city" disabled value="{{ $shipping->destination_details ? $shipping->destination_details['city_name'] : $shipping->area->area }}">
                                             </div>
                                             <div class="form-group">
                                                 <label for="courier">Courier</label>
-                                                <input type="text" class="form-control" name="courier" id="courier" disabled value="{{ $shipping->courier }}">
+                                                <input type="text" class="form-control" name="courier" id="courier" disabled value="{{ $shipping->courier ?? 'Our Courier' }}">
                                             </div>
                                             <div class="form-group">
                                                 <label for="zip">Zip</label>
-                                                <input type="text" class="form-control" name="zip" id="zip" disabled value="{{ $shipping->zip }}">
+                                                <input type="text" class="form-control" name="zip" id="zip" disabled value="{{ $shipping->zip ?? '-' }}">
                                             </div>
                                             @if ($shipping->payment && $shipping->shipping_status)
                                                 <div class="form-group">

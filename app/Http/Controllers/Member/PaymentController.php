@@ -36,7 +36,7 @@ class PaymentController extends Controller
 
     public function editPayment(Shipping $shipping)
     {
-        $shipping->load('orders.product.image', 'payment');
+        $shipping->load('orders.product.image', 'payment', 'area');
 
         if (in_array($shipping->shipping_service, [Shipping::SERVICE_REGULAR])) {
             $this->appendRajaOngkir($shipping);

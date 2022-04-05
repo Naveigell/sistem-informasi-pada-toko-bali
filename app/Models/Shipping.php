@@ -56,6 +56,11 @@ class Shipping extends Model
         }
     }
 
+    public function area()
+    {
+        return $this->belongsTo(ShippingCost::class, 'area_id');
+    }
+
     public function payment()
     {
         return $this->hasOne(Payment::class);

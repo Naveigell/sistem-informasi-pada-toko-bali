@@ -49,7 +49,7 @@
                                         @endif
                                     </td>
                                     <td>{{ $shipping->address }}</td>
-                                    <td>{{ $shipping->courier_full_name }}</td>
+                                    <td>{{ $shipping->courier_full_name ?? '-' }}</td>
                                     <td>Rp. {{ $shipping->converted_cost }}</td>
                                     <td>
                                         @if($shipping->shipping_status === array_keys(\App\Models\Shipping::SHIPPING_STATUSES)[2])
