@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Member;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -15,6 +16,13 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // redirect user to dashboard if user is admin
+        if (auth()->check()) {
+            if (auth()->user()->role === User::ROLE_ADMIN) {
+                return redirect(route('admin.dashboard.index'));
+            }
+        }
+
         $products = Product::with('category', 'image');
 
         if (\request()->filled('search')) {
