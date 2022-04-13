@@ -7,7 +7,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class LoginController extends Controller
+class AuthController extends Controller
 {
     public function login(LoginRequest $request)
     {
@@ -24,5 +24,12 @@ class LoginController extends Controller
         return back()->withErrors([
             "system" => trans('auth.failed'),
         ])->withInput($request->only('email'));
+    }
+
+    public function logout()
+    {
+        auth()->logout();
+
+        return redirect(route('index'));
     }
 }

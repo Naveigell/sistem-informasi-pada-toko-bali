@@ -3,16 +3,14 @@
         cursor: pointer;
     }
 </style>
-<ul class="list-group">
-    <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+<div class="list-group">
+    <a href="{{ route('biodatas.create') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center {{ request()->routeIs('biodatas.create') ? 'active' : '' }}">
         Account
-    </li>
-    <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+    </a>
+    <a href="{{ route('payments.index') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center {{ request()->routeIs('payments.index') ? 'active' : '' }}">
         Payment
-        <span class="badge badge-primary badge-pill">2</span>
-    </li>
-    <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+    </a>
+    <a href="{{ route('suggestions.index') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center {{ request()->routeIs('suggestions.index') ? 'active' : '' }}">
         Suggestion
-        <span class="badge badge-primary badge-pill">2</span>
-    </li>
-</ul>
+    </a>
+</div>

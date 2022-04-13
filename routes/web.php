@@ -38,8 +38,12 @@ Route::prefix('/payments/{shipping}/pay')->group(function () {
 
 Route::resource('payments', \App\Http\Controllers\Member\PaymentController::class);
 Route::prefix('login')->name('login.')->group(function () {
-    Route::post('/', [\App\Http\Controllers\Auth\LoginController::class, 'login'])->name('store');
-    Route::view('/', 'auth.member.login')->name('index');
+    Route::post('/', [\App\Http\Controllers\Auth\AuthController::class, 'login'])->name('store');
+    Route::view('/', 'auth.login')->name('index');
+});
+
+Route::prefix('logout')->name('logout.')->group(function () {
+    Route::match(['get', 'post'], '/', [\App\Http\Controllers\Auth\AuthController::class, 'logout'])->name('store');
 });
 
 Route::prefix('/shipping-cost')->name('shipping-cost.')->group(function () {
@@ -49,3 +53,6 @@ Route::prefix('/shipping-cost')->name('shipping-cost.')->group(function () {
 });
 
 Route::resource('suggestions', \App\Http\Controllers\Member\SuggestionController::class);
+
+Route::post('biodatas/password', [\App\Http\Controllers\Member\BiodataController::class, 'password'])->name('biodatas.password');
+Route::resource('biodatas', \App\Http\Controllers\Member\BiodataController::class)->only('create', 'store');

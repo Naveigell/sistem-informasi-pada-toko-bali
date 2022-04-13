@@ -21,7 +21,9 @@ class DashboardController extends Controller
         $totalProducts  = Product::query()->count();
         $totalMembers   = User::query()->where('role', User::ROLE_MEMBER)->count();
         $totalShippings = Shipping::query()->count();
-        $totalReviews   = round((Review::query()->sum('star') / (Review::query()->count() * 5)) * 5, 1);
+
+        $totalOfStars = Review::query()->sum('star');
+        $totalReviews = $totalOfStars <= 0 ? 0 : round(($totalOfStars / (Review::query()->count() * 5)) * 5, 1);
 
         $shippings = Shipping::query()->addSelect(\DB::raw('SUM(total) AS _total'))
                                       ->addSelect(\DB::raw('MONTH(updated_at) AS _month'))

@@ -10,6 +10,8 @@ Route::resource('categories', \App\Http\Controllers\Admin\CategoryController::cl
 Route::resource('dashboard', \App\Http\Controllers\Admin\DashboardController::class);
 Route::resource('shippings', \App\Http\Controllers\Admin\ShippingController::class);
 Route::resource('products', \App\Http\Controllers\Admin\ProductController::class);
+Route::post('biodatas/password', [\App\Http\Controllers\Admin\BiodataController::class, 'password'])->name('biodatas.password');
+Route::resource('biodatas', \App\Http\Controllers\Admin\BiodataController::class)->only('create', 'store');
 Route::resource('members', \App\Http\Controllers\Admin\MemberController::class);
 Route::resource('admins', \App\Http\Controllers\Admin\AdminController::class);
 Route::resource('orders', \App\Http\Controllers\Admin\OrderController::class);
