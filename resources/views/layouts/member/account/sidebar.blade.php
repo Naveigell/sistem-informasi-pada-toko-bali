@@ -13,4 +13,7 @@
     <a href="{{ route('suggestions.index') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center {{ request()->routeIs('suggestions.index') ? 'active' : '' }}">
         Suggestion
     </a>
+    <a href="{{ route('logout.store') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center text text-danger {{ request()->routeIs('logout.store') ? 'active' : '' }}">
+        Logout
+    </a>
 </div>

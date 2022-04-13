@@ -15,7 +15,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $products = Product::with('category', 'image')->get();
+        $products = Product::with('category', 'image');
+
+        if (\request()->filled('search')) {
+            $products->where('name', 'LIKE', '%' . \request('search') . '%');
+        }
+
+        $products = $products->get();
 
         return view('home', compact('products'));
     }

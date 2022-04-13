@@ -42,11 +42,11 @@
                                     <div class="form-group">
                                         <div class="d-block">
                                             <label for="password" class="control-label">Password</label>
-                                            <div class="float-right">
-                                                <a href="auth-forgot-password.html" class="text-small">
-                                                    Forgot Password?
-                                                </a>
-                                            </div>
+{{--                                            <div class="float-right">--}}
+{{--                                                <a href="auth-forgot-password.html" class="text-small">--}}
+{{--                                                    Forgot Password?--}}
+{{--                                                </a>--}}
+{{--                                            </div>--}}
                                         </div>
                                         <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" value="{{ old('password') }}">
                                         @error('password')
@@ -56,17 +56,13 @@
                                         @enderror
                                     </div>
 
-                                    <div class="form-group">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" name="remember" class="custom-control-input" tabindex="3" id="remember-me">
-                                            <label class="custom-control-label" for="remember-me">Remember Me</label>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
+                                    <div class="form-group text-center">
                                         <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
                                             Login
                                         </button>
+                                        <a href="{{ route('register.index') }}" class="btn btn-outline-secondary btn-lg btn-block" tabindex="4">
+                                            Register
+                                        </a>
                                     </div>
                                 </form>
                             </div>
