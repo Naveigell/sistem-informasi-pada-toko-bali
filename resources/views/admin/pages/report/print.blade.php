@@ -35,12 +35,9 @@
     <div class="">
         <div class="">
             <div class="text-center header">
-                <div style="margin-bottom:10px">
-{{--                    <img src="{{ public_path('img/logo.png') }}" alt="logo" width="80">--}}
-                </div>
-                <h2>Sistem Informasi Ecommerce</h2>
-                <p>Alamat: Jl. Raya Test Test</p>
-                <p>Tlp : 088219162457</p>
+                <h2>{{ config('contact.name') }}</h2>
+                <p>Address: {{ config('contact.address') }}</p>
+                <p>Tlp : {{ str_replace(['+62', ' '], '', config('contact.phone_number')) }}</p>
             </div>
             <hr>
             <h3>Income Report</h3>
@@ -80,8 +77,8 @@
 
         <div style="float: right; margin-right: 70px; margin-top: 70px;">
             <div style="text-align: center;">
-                <div>Blahkiuh, {{ date('d-m-Y') }}</div>
-                <div style="margin-top: 90px;">Kepala Pasar</div>
+                <div>Negara, {{ date('d F Y') }}</div>
+                <div style="margin-top: 90px;">{{ auth()->user()->name }}</div>
             </div>
         </div>
     </div>
