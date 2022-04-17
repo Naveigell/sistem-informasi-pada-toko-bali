@@ -79,6 +79,6 @@ class User extends Authenticatable
      */
     public function scopeAdmin($query)
     {
-        $query->where('role', self::ROLE_ADMIN);
+        $query->whereIn('role', [self::ROLE_OWNER, self::ROLE_ADMIN]);
     }
 }

@@ -9,7 +9,10 @@
     <div class="col-lg-12 col-md-12 col-12 col-sm-12 no-padding-margin">
         <div class="card">
             <div class="card-header">
-                <h4>Admin Lists</h4>
+                <h4>Admin/Owner Lists</h4>
+                <div class="card-header-action">
+                    <a href="{{ route('admin.admins.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> &nbsp; Add Admin</a>
+                </div>
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
@@ -17,9 +20,10 @@
                         <thead>
                         <tr>
                             <th class="col-1">No</th>
-                            <th class="col-4">Name</th>
+                            <th class="col-3">Name</th>
                             <th class="col-3">Username</th>
-                            <th class="col-4">Email</th>
+                            <th class="col-3">Email</th>
+                            <th class="col-2">Role</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -31,6 +35,9 @@
                                 <td>{{ $admin->name }}</td>
                                 <td>{{ $admin->username }}</td>
                                 <td>{{ $admin->email }}</td>
+                                <td>
+                                    <span class="badge badge-success">{{ ucwords($admin->role) }}</span>
+                                </td>
                             </tr>
                         @empty
                             <tr>

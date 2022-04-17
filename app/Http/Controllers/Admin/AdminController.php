@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\AdminRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $admins = User::admin()->paginate(10);
+        $admins = User::admin()->get();
 
         return view('admin.pages.users.admin.index', compact('admins'));
     }
@@ -23,22 +24,26 @@ class AdminController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function create()
     {
-        //
+        return view('admin.pages.users.admin.form');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param AdminRequest $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(AdminRequest $request)
     {
-        //
+        User::query()->create(array_merge($request->validated(), [
+            "password" => 123456,
+        ]));
+
+        return redirect(route('admin.admins.index'))->with('success', trans('action.store.success', ['module' => 'Admin']));
     }
 
     /**

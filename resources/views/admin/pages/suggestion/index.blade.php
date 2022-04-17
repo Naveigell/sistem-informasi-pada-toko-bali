@@ -1,7 +1,7 @@
 @extends('layouts.admin.admin')
 
 @section('content-title')
-    <h1>Orders</h1>
+    <h1>Suggestions</h1>
 @endsection
 
 @section('content-body')

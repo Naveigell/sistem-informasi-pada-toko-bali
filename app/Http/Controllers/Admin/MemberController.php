@@ -15,7 +15,7 @@ class MemberController extends Controller
      */
     public function index()
     {
-        $members = User::member()->paginate(10);
+        $members = User::member()->get();
 
         return view('admin.pages.users.member.index', compact('members'));
     }
