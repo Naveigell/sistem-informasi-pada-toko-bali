@@ -10,9 +10,11 @@
         <div class="card">
             <div class="card-header">
                 <h4>Admin/Owner Lists</h4>
-                <div class="card-header-action">
-                    <a href="{{ route('admin.admins.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> &nbsp; Add Admin</a>
-                </div>
+                @if (auth()->user()->role === \App\Models\User::ROLE_ADMIN)
+                    <div class="card-header-action">
+                        <a href="{{ route('admin.admins.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> &nbsp; Add Admin</a>
+                    </div>
+                @endif
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
