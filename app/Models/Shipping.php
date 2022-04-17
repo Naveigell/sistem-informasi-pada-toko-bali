@@ -6,6 +6,7 @@ use App\Traits\ModelBulkUpdate;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
  * Class Shipping
@@ -16,6 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property mixed shipping_service
  * @property mixed id
  * @property Payment payment
+ * @property User user
  * @property string tracking_id
  * @property \Illuminate\Database\Eloquent\Collection<Order> orders
  * @package App\Models
@@ -25,6 +27,10 @@ use Illuminate\Database\Eloquent\Model;
 class Shipping extends Model
 {
     use HasFactory, ModelBulkUpdate;
+
+    protected $appends = [
+        'created_date',
+    ];
 
     protected $fillable = [
         'user_id', 'tracking_id', 'name', 'email', 'address', 'phone', 'shipping_service', 'province', 'city', 'courier', 'zip',
@@ -38,6 +44,7 @@ class Shipping extends Model
         "on_delivery" => "On Delivery",
         "standing"    => "Standing",
         "arrived"     => "Arrived",
+        "waiting"     => "Waiting",
     ];
 
     /**
@@ -54,6 +61,16 @@ class Shipping extends Model
         if (in_array($this->shipping_service, [self::SERVICE_REGULAR])) {
             return self::SHIPPING_REGULAR_COURIER[$this->courier];
         }
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function getCreatedDateAttribute()
+    {
+        return $this->created_at->formatLocalized("%d %B %Y");
     }
 
     public function area()

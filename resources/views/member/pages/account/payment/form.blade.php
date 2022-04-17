@@ -125,7 +125,7 @@
                                                 <label for="payment-total">Total Payment To Pay</label>
                                                 <input type="text" class="form-control" name="shipping_total" id="payment-total" disabled value="Rp. {{ $shipping->total_payment }}">
                                             </div>
-                                            @if(!$shipping->payment)
+                                            @if(!$shipping->payment || optional($shipping->payment)->status === array_keys(\App\Models\Payment::STATUSES)[1])
                                                 <div class="form-group">
                                                     <label for="sender-bank">Your Bank Name</label>
                                                     <input type="text" class="form-control @error('sender_bank') is-invalid @enderror" name="sender_bank" id="sender-bank" placeholder="Ex. BRI, BCA">

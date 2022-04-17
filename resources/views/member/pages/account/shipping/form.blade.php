@@ -99,7 +99,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="tracking-id">Tracking Id</label>
-                                                <input type="text" class="form-control" name="tracking_id" id="tracking-id" disabled value="{{ $shipping->tracking_id }}">
+                                                <input type="text" class="form-control" name="tracking_id" id="tracking-id" disabled value="{{ $shipping->tracking_id ?? '-' }}">
                                                 <small class="form-text text-muted">
                                                     This tracking id will help you to track your order.
                                                 </small>
@@ -110,7 +110,7 @@
                                                     <i class="fa fa-truck" style="font-size: 180px;"></i>
                                                 </div>
                                                 <div class="mt-4">
-                                                    <span class="badge badge-success">{{ \App\Models\Shipping::SHIPPING_STATUSES[$shipping->shipping_status] }}</span>
+                                                    <span class="badge @if ($shipping->shipping_status) badge-success @else badge-primary @endif">{{ $shipping->shipping_status ? \App\Models\Shipping::SHIPPING_STATUSES[$shipping->shipping_status] : \App\Models\Shipping::SHIPPING_STATUSES['waiting'] }}</span>
                                                 </div>
                                             </div>
                                             <div class="form-group">

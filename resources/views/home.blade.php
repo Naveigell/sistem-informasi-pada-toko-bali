@@ -7,9 +7,9 @@
                 <article class="article article-style-b">
                     <div class="article-header">
                         <div class="article-image" data-background="{{ $product->image->url }}" style="background-image: url({{ $product->image->url }});"></div>
-                        <div class="article-badge">
-                            <div class="article-badge-item bg-danger"><i class="fas fa-fire"></i> Trending</div>
-                        </div>
+{{--                        <div class="article-badge">--}}
+{{--                            <div class="article-badge-item bg-danger"><i class="fas fa-fire"></i> Trending</div>--}}
+{{--                        </div>--}}
                     </div>
                     <div class="article-details">
                         <div class="article-title">

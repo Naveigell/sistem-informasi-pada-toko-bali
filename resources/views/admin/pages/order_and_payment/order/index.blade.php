@@ -46,7 +46,9 @@
                                     @endif
                                 </td>
                                 <td>
-                                    @if(!optional($shipping->payment)->status)
+                                    @if(!optional($shipping->payment)->status && $shipping->payment)
+                                        <span class="badge badge-primary">Need to validate payment</span>
+                                    @elseif (!optional($shipping->payment)->status)
                                         <span class="badge badge-light">Need to be validated</span>
                                     {{-- if status valid --}}
                                     @elseif(in_array($shipping->payment->status, [array_keys(\App\Models\Payment::STATUSES)[0]]))

@@ -17,11 +17,16 @@ class CheckoutController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
      */
     public function index()
     {
         $carts = Cart::memberCarts()->with('product', 'member', 'product.image')->get();
+
+        if ($carts->count() <= 0) {
+            return back();
+        }
+
         $total = $carts->reduce(function ($total, $item) {
             return $total + $item->product->price * $item->quantity;
         }, 0);

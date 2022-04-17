@@ -54,6 +54,8 @@
                                     <td>
                                         @if($shipping->shipping_status === array_keys(\App\Models\Shipping::SHIPPING_STATUSES)[2])
                                             <a href="{{ route('shippings.products.reviews.index', $shipping) }}" class="btn btn-success"><i class="fa fa-star"></i></a>
+                                        @elseif(optional($shipping->payment)->status === array_keys(\App\Models\Payment::STATUSES)[1])
+                                            <a href="{{ route('payments.shipping.pay.edit', $shipping) }}" class="btn btn-warning"><i class="fa fa-wallet"></i></a>
                                         @elseif ($shipping->shipping_service && !$shipping->payment)
                                             <a href="{{ route('payments.shipping.pay.edit', $shipping) }}" class="btn btn-warning"><i class="fa fa-wallet"></i></a>
                                         @else

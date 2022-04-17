@@ -14,12 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('/', \App\Http\Controllers\Member\HomeController::class)->only('index');
+Route::resource('/', \App\Http\Controllers\Member\HomeController::class)->only('index')->middleware('should.have.role:member,anonymous');
 
-Route::middleware('accept.member')->group(function () {
-    Route::resource('products', \App\Http\Controllers\Member\ProductController::class)->only('show')->parameters([
-        'products' => 'product:slug'
-    ]);
+Route::resource('products', \App\Http\Controllers\Member\ProductController::class)->only('show')->parameters([
+    'products' => 'product:slug'
+])->middleware('should.have.role:member,anonymous');
+
+Route::middleware('should.have.role:member')->group(function () {
     Route::resource('carts', \App\Http\Controllers\Member\CartController::class)->only('index', 'store', 'destroy');
     Route::view('/checkouts/success', 'member.pages.checkout.success')->name('checkouts.success');
     Route::resource('checkouts', \App\Http\Controllers\Member\CheckoutController::class)->only('index', 'store');

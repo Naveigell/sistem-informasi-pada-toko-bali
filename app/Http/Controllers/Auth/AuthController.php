@@ -14,7 +14,7 @@ class AuthController extends Controller
     {
         if (auth()->attempt($request->only('email', 'password'))) {
 
-            if (in_array(auth()->user()->role, [User::ROLE_ADMIN])) {
+            if (in_array(auth()->user()->role, [User::ROLE_ADMIN, User::ROLE_OWNER])) {
                 return redirect(route('admin.dashboard.index'));
             }
 

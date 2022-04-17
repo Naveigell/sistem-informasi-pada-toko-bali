@@ -67,5 +67,7 @@ class Kernel extends HttpKernel
         'accept.member' => \App\Http\Middleware\AcceptMember::class,
         'accept.admin' => \App\Http\Middleware\AcceptAdmin::class,
         'redirect.if.authenticated' => \App\Http\Middleware\RedirectIfAuthenticated::class,
+
+        'should.have.role' => \App\Http\Middleware\ShouldHaveRole::class,
     ];
 }
