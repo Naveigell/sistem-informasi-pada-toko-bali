@@ -4,9 +4,9 @@
     <div class="row">
         @foreach($products as $product)
             <div class="col-12 col-sm-6 col-md-6 col-lg-3">
-                <article class="article article-style-b">
-                    <div class="article-header">
-                        <div class="article-image" data-background="{{ $product->image->url }}" style="background-image: url({{ $product->image->url }});"></div>
+                <article class="article article-style-b" style="height: 750px;">
+                    <div class="article-header" style="height: 550px;">
+                        <div class="article-image" style="background-image: url({{ $product->image->url }});"></div>
 {{--                        <div class="article-badge">--}}
 {{--                            <div class="article-badge-item bg-danger"><i class="fas fa-fire"></i> Trending</div>--}}
 {{--                        </div>--}}

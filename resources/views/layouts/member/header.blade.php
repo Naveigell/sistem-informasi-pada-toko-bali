@@ -1,11 +1,11 @@
 <div class="navbar-bg" style="height: 70px;"></div>
 <nav class="navbar navbar-expand-lg main-navbar" style="left: 0;">
-    <a href="{{ route('index') }}" class="navbar-brand sidebar-gone-hide">Stisla</a>
+    <a href="{{ route('index') }}" class="navbar-brand sidebar-gone-hide">Home</a>
     <form class="form-inline mr-auto">
-        <div class="search-element">
-            <input class="form-control" value="{{ request('search') }}" name="search" type="search" placeholder="Search ..." aria-label="Search" data-width="400" style="width: 400px;">
-            <button class="btn" type="submit"><i class="fas fa-search"></i></button>
-        </div>
+{{--        <div class="search-element">--}}
+{{--            <input class="form-control" value="{{ request('search') }}" name="search" type="search" placeholder="Search ..." aria-label="Search" data-width="400" style="width: 400px;">--}}
+{{--            <button class="btn" type="submit"><i class="fas fa-search"></i></button>--}}
+{{--        </div>--}}
     </form>
     <ul class="navbar-nav navbar-right">
         <li class="dropdown ">

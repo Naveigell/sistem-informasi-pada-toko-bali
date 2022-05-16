@@ -14,8 +14,8 @@
             <img
                 src="{{ $product->image->url }}"
                 width="100%"
-                height="300px"
-                style="border-radius: 19px;"
+                height="600px"
+                style="border-radius: 19px; object-fit: cover"
                 alt="Image">
         </div>
         <div class="col-6">
@@ -72,7 +72,7 @@
             </form>
         </div>
     </div>
-    <div class="row">
+    <div class="row mt-5">
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
@@ -80,7 +80,7 @@
                 </div>
                 <div class="card-body">
                     <ul class="list-unstyled">
-                        @foreach($product->reviews as $review)
+                        @forelse($product->reviews as $review)
                             <li class="media">
                                 <img class="mr-3" src="https://getstisla.com/dist/img/example-image-50.jpg" alt="Generic placeholder image">
                                 <div class="media-body">
@@ -95,7 +95,15 @@
                                     </p>
                                 </div>
                             </li>
-                        @endforeach
+                        @empty
+                            <li class="media">
+                                <div class="media-body">
+                                    <p>
+                                        No Review
+                                    </p>
+                                </div>
+                            </li>
+                        @endforelse
                     </ul>
                 </div>
             </div>

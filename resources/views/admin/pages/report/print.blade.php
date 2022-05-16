@@ -37,7 +37,7 @@
             <div class="text-center header">
                 <h2>{{ config('contact.name') }}</h2>
                 <p>Address: {{ config('contact.address') }}</p>
-                <p>Tlp : {{ str_replace(['+62', ' '], '', config('contact.phone_number')) }}</p>
+                <p>Tlp : {{ config('contact.phone_number') }}</p>
             </div>
             <hr>
             <h3>Income Report</h3>

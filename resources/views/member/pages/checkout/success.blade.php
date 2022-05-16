@@ -23,9 +23,9 @@
             <div class="col-12">
                 <a href="{{ route('payments.index') }}" class="btn btn-success btn-lg">Go to payment</a>
             </div>
-            <div class="col-12 mt-5">
-                <span class="text-muted">Author of this illustration : <a target="_blank" href="https://vecteezy.com">Vecteezy.com</a></span>
-            </div>
+{{--            <div class="col-12 mt-5">--}}
+{{--                <span class="text-muted">Author of this illustration : <a target="_blank" href="https://vecteezy.com">Vecteezy.com</a></span>--}}
+{{--            </div>--}}
         </div>
     </div>
 @endsection
