@@ -64,7 +64,7 @@
                                             @method('put')
                                             <div class="form-group">
                                                 <label for="name">Name</label>
-                                                <input type="text" class="form-control" name="name" id="name" disabled value="{{ $shipping->name }}">
+                                                <input type="text" class="form-control" name="name" id="name" disabled value="{{ $shipping->user->name }}">
                                             </div>
                                             <div class="form-group">
                                                 <label for="email">Email</label>
@@ -78,26 +78,34 @@
                                                 <label for="phone">Phone</label>
                                                 <input type="text" class="form-control" name="phone" id="phone" disabled value="{{ $shipping->phone }}">
                                             </div>
-                                            <div class="form-group">
-                                                <label for="shipping-service">Shipping Service</label>
-                                                <input type="text" class="form-control" name="shipping-service" id="shipping-service" disabled value="{{ $shipping->shipping_service }}">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="province">Province</label>
-                                                <input type="text" class="form-control" name="province" id="province" disabled value="{{ $shipping->destination_details['province'] }}">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="city">City</label>
-                                                <input type="text" class="form-control" name="city" id="city" disabled value="{{ $shipping->destination_details['city_name'] }}">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="courier">Courier</label>
-                                                <input type="text" class="form-control" name="courier" id="courier" disabled value="{{ $shipping->courier }}">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="zip">Zip</label>
-                                                <input type="text" class="form-control" name="zip" id="zip" disabled value="{{ $shipping->zip }}">
-                                            </div>
+                                            @if ($shipping->shipping_service == \App\Models\Shipping::SERVICE_REGULAR)
+                                                <div class="form-group">
+                                                    <label for="shipping-service">Shipping Service</label>
+                                                    <input type="text" class="form-control" name="shipping-service" id="shipping-service" disabled value="{{ $shipping->shipping_service }}">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="province">Province</label>
+                                                    <input type="text" class="form-control" name="province" id="province" disabled value="{{ $shipping->destination_details['province'] }}">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="city">City</label>
+                                                    <input type="text" class="form-control" name="city" id="city" disabled value="{{ $shipping->destination_details['city_name'] }}">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="courier">Courier</label>
+                                                    <input type="text" class="form-control" name="courier" id="courier" disabled value="{{ $shipping->courier }}">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="zip">Zip</label>
+                                                    <input type="text" class="form-control" name="zip" id="zip" disabled value="{{ $shipping->zip }}">
+                                                </div>
+                                            @else
+                                                <div class="form-group">
+                                                    <label for="shipping-service">Area</label>
+                                                    <input type="text" class="form-control" name="area" id="area" disabled value="{{ $shipping->area->area }}">
+                                                </div>
+                                            @endif
+
                                             {{-- if member have not pay the orders or payment status is invalid --}}
                                             @if(!optional($shipping->payment)->status || optional($shipping->payment)->status === array_keys(\App\Models\Payment::STATUSES)[1])
                                                 <div class="form-group">
@@ -128,7 +136,7 @@
                                                             @if ($shipping->tracking_id)
                                                                 This tracking id will help member to track their orders.
                                                             @else
-                                                                Please enter valid tracking id. It's will help member to track their orders. <br> This will display once.
+                                                                Please enter valid tracking id. It will help member to track their orders. <br> This will display once.
                                                             @endif
                                                         </small>
                                                     @endif
@@ -169,6 +177,10 @@
                                             <div class="form-group">
                                                 <label for="payment-total">Total Payment To Pay</label>
                                                 <input type="text" class="form-control" name="shipping_total" id="payment-total" disabled value="Rp. {{ $shipping->total_payment }}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="sender-bank">Member Sender Name</label>
+                                                <input type="text" class="form-control" name="sender_bank" id="sender-bank" disabled value="{{ optional($shipping->payment)->sender_name ?? '-' }}">
                                             </div>
                                             <div class="form-group">
                                                 <label for="sender-bank">Member Bank Name</label>

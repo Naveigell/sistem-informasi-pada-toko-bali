@@ -100,7 +100,7 @@
                 <div class="card-body">
                     <table>
                         <tr>
-                            <td>1.</td>
+                            <td class="align-top">1.</td>
                             <td>Click 'checkout now' button.</td>
                         </tr>
                         <tr>
@@ -120,6 +120,19 @@
                             <td>Click the wallet icon to continue to upload your payment proof.</td>
                         </tr>
                     </table>
+                    <div class="mt-3">
+                        Note: You can transfer payment through this bank account: <br>
+                        <table class="mt-3">
+                            @foreach(\App\Models\Payment::BANK_ACCOUNT as $bank => $account)
+                                <tr>
+                                    <td class="align-top">&#x2022; &nbsp; &nbsp;</td>
+                                    <td>{{ strtoupper($bank) }} a/n {{ \App\Models\Payment::BANK_ACCOUNT_NAME[$loop->index] }} {{ $account }} </td>
+                                </tr>
+                            @endforeach
+                        </table>
+                        <ul class="">
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

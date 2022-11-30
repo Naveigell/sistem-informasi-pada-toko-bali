@@ -48,12 +48,7 @@ class PaymentController extends Controller
     public function updatePayment(PaymentRequest $request, Shipping $shipping)
     {
         // attributes need to be updated
-        $attributes = array_merge(
-            $request->only('payment_proof', 'sender_bank', 'sender_account_number', 'merchant_bank'),
-            [
-                "sender_name" => auth()->user()->name,
-            ]
-        );
+        $attributes = $request->only('payment_proof', 'sender_bank', 'sender_name', 'sender_account_number', 'merchant_bank');
 
         $shipping->payment()->updateOrCreate([
             "shipping_id" => $shipping->id,
