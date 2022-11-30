@@ -93,6 +93,35 @@
                     </div>
                 </div>
             </div>
+            <div class="card card-warning">
+                <div class="card-header">
+                    <h4>How to pay</h4>
+                </div>
+                <div class="card-body">
+                    <table>
+                        <tr>
+                            <td>1.</td>
+                            <td>Click 'checkout now' button.</td>
+                        </tr>
+                        <tr>
+                            <td class="align-top">2.</td>
+                            <td>Fill the order form such like address, phone, shipping service, courier.</td>
+                        </tr>
+                        <tr>
+                            <td class="align-top">3.</td>
+                            <td>Click 'checkout' button.</td>
+                        </tr>
+                        <tr>
+                            <td class="align-top">4.</td>
+                            <td>Go to payment page by click your username on right top navbar.</td>
+                        </tr>
+                        <tr>
+                            <td class="align-top">5.</td>
+                            <td>Click the wallet icon to continue to upload your payment proof.</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 @endsection

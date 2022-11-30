@@ -20,7 +20,8 @@
                 <li class="menu-header">Product</li>
                 <li class="@if (request()->routeIs('*products*')) active @endif"><a class="nav-link" href="{{ route('admin.products.index') }}"><i class="fas fa-shopping-bag"></i> <span>Product</span></a></li>
                 <li class="menu-header">Suggestions</li>
-                <li class="@if (request()->routeIs('*suggestions*')) active @endif"><a class="nav-link" href="{{ route('admin.suggestions.index') }}"><i class="fas fa-star"></i> <span>Suggestion</span></a></li>
+                <li class="@if (request()->routeIs('*suggestions*')) active @endif"><a class="nav-link" href="{{ route('admin.suggestions.index') }}"><i class="fas fa-paper-plane"></i> <span>Suggestion</span></a></li>
+                <li class="@if (request()->routeIs('*reviews*')) active @endif"><a class="nav-link" href="{{ route('admin.reviews.index') }}"><i class="fas fa-star"></i> <span>Reviews</span></a></li>
                 <li class="menu-header">Order & Payment</li>
                 <li class="@if (request()->routeIs('*orders*')) active @endif"><a class="nav-link" href="{{ route('admin.orders.index') }}"><i class="fas fa-copy"></i> <span>Order</span></a></li>
             @else

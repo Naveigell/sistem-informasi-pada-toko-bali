@@ -19,8 +19,11 @@ class Payment extends Model
     ];
 
     public const BANK_ACCOUNT = [
-        "bri" => "1702918293",
-        "bca" => "1293740129",
+        "bri" => "158201000250561",
+    ];
+
+    public const BANK_ACCOUNT_NAME = [
+        "I Gusti Nyoman Natih Mahadikha Pinatih",
     ];
 
     public const STATUSES = [

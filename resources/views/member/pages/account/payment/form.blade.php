@@ -149,14 +149,15 @@
                                                     <select type="text" class="form-control @error('merchant_bank') is-invalid @enderror" name="merchant_bank" id="merchant-bank">
                                                         <x-nothing-selected></x-nothing-selected>
                                                         @foreach(\App\Models\Payment::BANK_ACCOUNT as $bank => $account)
-                                                            <option value="{{ $bank }}">{{ $account }} {!! str_repeat('&nbsp;', 3) !!} ({{ strtoupper($bank) }})</option>
+                                                            <option value="{{ $bank }}">{{ $account }} {!! str_repeat('&nbsp;', 2) !!} ({{ strtoupper($bank) }}) {!! str_repeat('&nbsp;', 2) !!} {{ \App\Models\Payment::BANK_ACCOUNT_NAME[$loop->index] }}</option>
                                                         @endforeach
                                                     </select>
                                                     @error('merchant_bank')
-                                                    <div class="invalid-feedback">
-                                                        {{ $message }}
-                                                    </div>
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
                                                     @enderror
+                                                    <span>You can see bank account information and payment information through this <a href="" class="" data-toggle="modal" data-target="#modal-information">link</a>.</span>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="payment-proof">Payment Upload</label>
@@ -201,3 +202,25 @@
     <input type="file" multiple="multiple" class="dz-hidden-input" style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;">
 @endsection
 
+@section('content-modal')
+    <x-modal.base title="Bank Account Information" id="modal-information">
+        <x-slot name="body">
+            <div class="row">
+                <div class="col-12">
+                    <label for="">Payment Information : </label>
+                    <div>
+                        <span class="d-block mb-2">you can transfer payment through this bank account:</span>
+                        <ul class="">
+                            @foreach(\App\Models\Payment::BANK_ACCOUNT as $bank => $account)
+                                <li>{{ strtoupper($bank) }} a/n {{ \App\Models\Payment::BANK_ACCOUNT_NAME[$loop->index] }} {{ $account }} </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </x-slot>
+        <x-slot name="customModalFooter">
+            <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+        </x-slot>
+    </x-modal.base>
+@endsection

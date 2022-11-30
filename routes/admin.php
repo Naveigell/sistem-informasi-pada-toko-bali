@@ -15,5 +15,6 @@ Route::resource('biodatas', \App\Http\Controllers\Admin\BiodataController::class
 Route::resource('members', \App\Http\Controllers\Admin\MemberController::class);
 Route::resource('admins', \App\Http\Controllers\Admin\AdminController::class);
 Route::resource('orders', \App\Http\Controllers\Admin\OrderController::class);
+Route::resource('reviews', \App\Http\Controllers\Admin\ReviewController::class)->only('index');
 Route::get('/create', [\App\Http\Controllers\Admin\ReportController::class, 'create'])->name('report.create');
 Route::post('/print', [\App\Http\Controllers\Admin\ReportController::class, 'print'])->name('report.print');

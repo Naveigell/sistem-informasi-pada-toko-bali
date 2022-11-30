@@ -19,6 +19,21 @@
                             <h2><a style="color: #f57224;">Rp. {{ number_format($product->price, 0, ',', '.') }}</a></h2>
                         </div>
                         <p><i class="fa fa-shopping-bag"></i>&nbsp;&nbsp;{{ $product->category->name }}</p>
+                        <div>
+                            <ul class="list-unstyled">
+                                @if ($product->reviews->isNotEmpty())
+                                    <li class="media">
+                                        <div class="media-body">
+                                            <span>
+                                                @for($i = 1; $i <= 5; $i++)
+                                                    <i class="fa fa-star" @if ($i <= $product->average_review) style="color: darkorange;" @endif></i>
+                                                @endfor
+                                            </span>
+                                        </div>
+                                    </li>
+                                @endif
+                            </ul>
+                        </div>
                     </div>
                 </article>
             </div>

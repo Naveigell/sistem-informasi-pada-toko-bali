@@ -23,7 +23,7 @@ class HomeController extends Controller
             }
         }
 
-        $products = Product::with('category', 'image');
+        $products = Product::with('category', 'image', 'reviews.product');
 
         if (\request()->filled('search')) {
             $products->where('name', 'LIKE', '%' . \request('search') . '%');

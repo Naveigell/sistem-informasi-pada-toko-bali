@@ -74,5 +74,22 @@
                 </div>
             </div>
         </div>
+        <div class="col-lg-12 col-md-12 col-12 col-sm-12 no-padding-margin">
+            <div class="card">
+                <div class="card-body p-0">
+                    <div class="p-3">
+                        <div class="d-inline-block">
+                            <button class="btn btn-success btn-sm"><i class="fa fa-star"></i></button> &nbsp; Manage Review. &nbsp;
+                        </div>
+                        <div class="d-inline-block">
+                            <button class="btn btn-warning btn-sm"><i class="fa fa-wallet"></i></button> &nbsp; Manage Payment. &nbsp;
+                        </div>
+                        <div class="d-inline-block">
+                            <button class="btn btn-info btn-sm"><i class="fa fa-eye"></i></button> &nbsp; See Shipping History. &nbsp;
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection

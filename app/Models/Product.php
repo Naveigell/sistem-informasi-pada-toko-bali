@@ -30,6 +30,17 @@ class Product extends Model
         return $this->hasMany(Review::class);
     }
 
+    public function getAverageReviewAttribute()
+    {
+        if (!$this->reviews) {
+            $this->load('reviews');
+        }
+
+        $total = $this->reviews->sum('star');
+
+        return round($total / $this->reviews->count());
+    }
+
     public function setCategoryAttribute($value)
     {
         $this->attributes['category_id'] = $value;
