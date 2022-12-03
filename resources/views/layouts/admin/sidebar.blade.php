@@ -24,6 +24,8 @@
                 <li class="@if (request()->routeIs('*reviews*')) active @endif"><a class="nav-link" href="{{ route('admin.reviews.index') }}"><i class="fas fa-star"></i> <span>Reviews</span></a></li>
                 <li class="menu-header">Order & Payment</li>
                 <li class="@if (request()->routeIs('*orders*')) active @endif"><a class="nav-link" href="{{ route('admin.orders.index') }}"><i class="fas fa-copy"></i> <span>Order</span></a></li>
+                <li class="menu-header">Menu</li>
+                <li class="@if (request()->routeIs('*testimonials*')) active @endif"><a class="nav-link" href="{{ route('admin.testimonials.index') }}"><i class="fas fa-hand-paper"></i> <span>Testimonial</span></a></li>
             @else
                 <li class="menu-header">Home</li>
                 <li class="@if (request()->routeIs('*dashboard*')) active @endif"><a class="nav-link" href="{{ route('admin.dashboard.index') }}"><i class="fas fa-home"></i> <span>Dashboard</span></a></li>

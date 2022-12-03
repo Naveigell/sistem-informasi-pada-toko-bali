@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Member;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\Testimonial;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -31,7 +32,9 @@ class HomeController extends Controller
 
         $products = $products->get();
 
-        return view('home', compact('products'));
+        $testimonials = Testimonial::all();
+
+        return view('home', compact('products', 'testimonials'));
     }
 
     /**
