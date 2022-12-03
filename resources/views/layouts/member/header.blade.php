@@ -34,7 +34,7 @@
         @else
             <li class="dropdown dropdown-list-toggle">
                 <a href="{{ route('login.index') }}" class="nav-link nav-link-lg" style="position: relative;">
-                    <i class="fa fa-sign-in-alt"></i>
+                    <i class="fa fa-user"></i>
 
                     @if (auth()->isUser())
                         <span style="position: absolute; font-size: 12px; bottom: 0; right: 0; background: #e51d1d; border-radius: 50px; min-width: 20px; min-height: 20px; line-height: 0; display: flex; justify-content: center; align-items: center;">
