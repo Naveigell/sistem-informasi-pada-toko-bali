@@ -15,9 +15,11 @@ class GenerateMissingUserIdInTestimonials extends Migration
     {
         $user = \App\Models\User::member()->inRandomOrder()->first();
 
-        \App\Models\Testimonial::query()->update([
-            "user_id" => $user->id
-        ]);
+        if ($user) {
+            \App\Models\Testimonial::query()->update([
+                "user_id" => $user->id
+            ]);
+        }
     }
 
     /**

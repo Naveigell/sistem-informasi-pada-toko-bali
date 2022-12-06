@@ -10,7 +10,7 @@ class Testimonial extends Model
     use HasFactory;
 
     protected $fillable = [
-        'username', 'description', 'star',
+        'user_id', 'username', 'description', 'star',
     ];
 
     public function getCensoredUsernameAttribute()

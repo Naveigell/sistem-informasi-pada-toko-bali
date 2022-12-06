@@ -7,6 +7,8 @@ use App\Models\User;
 use Faker\Factory;
 use Faker\Generator;
 use Illuminate\Database\Seeder;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Str;
 
 class UserSeeder extends Seeder
 {
@@ -41,6 +43,7 @@ class UserSeeder extends Seeder
             "email"    => $email,
             "password" => 123456,
             "role"     => $role,
+            "avatar"   => UploadedFile::fake()->create(Str::random(40) . 'jpg'),
         ]);
 
         Biodata::query()->create([
