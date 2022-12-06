@@ -15,6 +15,7 @@ Route::resource('biodatas', \App\Http\Controllers\Admin\BiodataController::class
 Route::resource('members', \App\Http\Controllers\Admin\MemberController::class);
 Route::resource('admins', \App\Http\Controllers\Admin\AdminController::class);
 Route::resource('orders', \App\Http\Controllers\Admin\OrderController::class);
+Route::post('/reviews/{review}/testimonial', [\App\Http\Controllers\Admin\ReviewController::class, 'storeReview'])->name('reviews.testimonial.store');
 Route::resource('reviews', \App\Http\Controllers\Admin\ReviewController::class)->only('index');
 Route::resource('testimonials', \App\Http\Controllers\Admin\TestimonialController::class)->except('show');
 Route::get('/create', [\App\Http\Controllers\Admin\ReportController::class, 'create'])->name('report.create');

@@ -15,6 +15,15 @@
                 </div>
                 <div class="card-body">
                     <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username', @$testimonial ? $testimonial->username : '') }}">
+                        @error('username')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                    </div>
+                    <div class="form-group">
                         <label>Description</label>
                         <textarea name="description" id="" cols="30" rows="10" class="form-control @error('description') is-invalid @enderror" style="height: 200px;">{{ old('description', @$testimonial ? $testimonial->description : '') }}</textarea>
                         @error('description')

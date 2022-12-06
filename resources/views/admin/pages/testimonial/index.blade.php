@@ -20,7 +20,8 @@
                         <thead>
                         <tr>
                             <th class="col-1">No</th>
-                            <th class="col-7">Description</th>
+                            <th class="col-2">Username</th>
+                            <th class="col-5">Description</th>
                             <th class="col-2">Star</th>
                             <th class="col-2">Action</th>
                         </tr>
@@ -29,6 +30,7 @@
                         @forelse($testimonials as $testimonial)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
+                                <td>{{ $testimonial->username }}</td>
                                 <td>{{ $testimonial->description }}</td>
                                 <td>
                                     <span>

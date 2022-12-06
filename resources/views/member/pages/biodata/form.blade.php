@@ -6,6 +6,27 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
+                        <div class="col-12">
+                            @if ($message = session()->get('avatar-success'))
+                                <x-alert.success :message="$message"></x-alert.success>
+                            @endif
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Avatar</h4>
+                                </div>
+                                <div class="card-body text text-center">
+                                    <div class="">
+                                        <img src="{{ $biodata->avatar_url }}" alt="" class="rounded-circle" style="width: 200px; height: 200px;">
+                                    </div>
+                                    <br>
+                                    <button class="btn btn-primary" id="avatar-change">Change</button>
+                                    <form id="avatar-form" action="{{ route('biodatas.avatar') }}" method="post" enctype="multipart/form-data">
+                                        @csrf
+                                        <input type="file" name="avatar" class="d-none" id="avatar-input-file" accept="image/png,image/jpeg,image/jpg" readonly>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-7">
                             @if ($message = session()->get('success'))
                                 <x-alert.success :message="$message"></x-alert.success>
@@ -102,3 +123,15 @@
         </div>
     </div>
 @endsection
+
+@push('stack-script')
+    <script>
+        $('#avatar-change').on('click', function () {
+            $('#avatar-input-file').click();
+        })
+
+        $('#avatar-input-file').change(function () {
+            $('#avatar-form').submit();
+        });
+    </script>
+@endpush

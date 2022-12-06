@@ -50,6 +50,7 @@ Route::middleware('should.have.role:member')->group(function () {
     Route::resource('suggestions', \App\Http\Controllers\Member\SuggestionController::class);
 
     Route::post('biodatas/password', [\App\Http\Controllers\Member\BiodataController::class, 'password'])->name('biodatas.password');
+    Route::post('biodatas/avatar', [\App\Http\Controllers\Member\BiodataController::class, 'updateAvatar'])->name('biodatas.avatar');
     Route::resource('biodatas', \App\Http\Controllers\Member\BiodataController::class)->only('create', 'store');
 });
 

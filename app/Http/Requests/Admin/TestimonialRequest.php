@@ -14,6 +14,7 @@ class TestimonialRequest extends FormRequest
     public function rules()
     {
         return [
+            "username"    => "required|string|min:3|max:255",
             "description" => "required|string|min:3|max:2000",
             "star"        => "required|integer|min:1|max:5",
         ];

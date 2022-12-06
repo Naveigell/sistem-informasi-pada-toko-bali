@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Member;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Member\BiodataAvatarRequest;
 use App\Http\Requests\Member\BiodataPasswordRequest;
 use App\Http\Requests\Member\BiodataRequest;
 use Hash;
@@ -55,6 +56,13 @@ class BiodataController extends Controller
         auth()->user()->update($request->validated());
 
         return redirect(route('biodatas.create'))->with('success-password', 'Change password success!');
+    }
+
+    public function updateAvatar(BiodataAvatarRequest $request)
+    {
+        auth()->user()->update($request->validated());
+
+        return redirect(route('biodatas.create'))->with('success-avatar', 'Change avatar success!');
     }
 
     /**

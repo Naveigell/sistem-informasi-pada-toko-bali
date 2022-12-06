@@ -32,7 +32,7 @@ class HomeController extends Controller
 
         $products = $products->get();
 
-        $testimonials = Testimonial::all();
+        $testimonials = Testimonial::with('user')->get();
 
         return view('home', compact('products', 'testimonials'));
     }

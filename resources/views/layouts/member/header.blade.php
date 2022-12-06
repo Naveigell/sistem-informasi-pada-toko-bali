@@ -27,7 +27,7 @@
         @if (auth()->isUser())
             <li class="dropdown">
                 <a href="{{ route('payments.index') }}" class="nav-link nav-link-lg nav-link-user">
-                    <img alt="image" src="{{ asset('assets/img/avatar/avatar-1.png') }}" class="rounded-circle mr-1">
+                    <img alt="image" src="{{ auth()->user()->avatar_url }}" class="rounded-circle mr-1" style="width: 30px; height: 30px;">
                     <div class="d-sm-none d-lg-inline-block">Hi, {{ auth()->user()->username }}</div>
                 </a>
             </li>

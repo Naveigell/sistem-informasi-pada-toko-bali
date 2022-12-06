@@ -6,7 +6,9 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\HasApiTokens;
 
 /**
@@ -36,6 +38,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'avatar',
     ];
 
     /**
@@ -65,6 +68,28 @@ class User extends Authenticatable
     public function setUsernameAttribute($value)
     {
         $this->attributes['username'] = str_replace(['-', ' '], ['.', ''], \Str::slug($value));
+    }
+
+    public function getAvatarUrlAttribute()
+    {
+        if (!$this->avatar) {
+            return 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTL_JlCFnIGX5omgjEjgV9F3sBRq14eTERK9w&usqp=CAU';
+        }
+
+        return asset('storage/images/users/' . $this->avatar);
+    }
+
+    public function setAvatarAttribute($value)
+    {
+        if (is_string($value)) {
+            $this->attributes['avatar'] = $value;
+        } else if ($value instanceof UploadedFile) {
+            $filename = $value->hashName();
+
+            Storage::putFileAs('public/images/users', $value, $filename);
+
+            $this->attributes['avatar'] = $filename;
+        }
     }
 
     /**

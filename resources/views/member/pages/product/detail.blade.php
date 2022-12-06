@@ -72,43 +72,43 @@
             </form>
         </div>
     </div>
-    <div class="row mt-5">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    <h4>Review</h4>
-                </div>
-                <div class="card-body">
-                    <ul class="list-unstyled">
-                        @forelse($product->reviews as $review)
-                            <li class="media">
-                                <img class="mr-3" src="https://getstisla.com/dist/img/example-image-50.jpg" alt="Generic placeholder image">
-                                <div class="media-body">
-                                    <h5 class="mt-0 mb-1">{{ $review->user->username }}</h5>
-                                    <span>
-                                        @for($i = 1; $i <= 5; $i++)
-                                            <i class="fa fa-star" @if ($i <= $review->star) style="color: darkorange;" @endif></i>
-                                        @endfor
-                                    </span>
-                                    <p>
-                                        {{ $review->description }}
-                                    </p>
-                                </div>
-                            </li>
-                        @empty
-                            <li class="media">
-                                <div class="media-body">
-                                    <p>
-                                        No Review
-                                    </p>
-                                </div>
-                            </li>
-                        @endforelse
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+{{--    <div class="row mt-5">--}}
+{{--        <div class="col-12">--}}
+{{--            <div class="card">--}}
+{{--                <div class="card-header">--}}
+{{--                    <h4>Review</h4>--}}
+{{--                </div>--}}
+{{--                <div class="card-body">--}}
+{{--                    <ul class="list-unstyled">--}}
+{{--                        @forelse($product->reviews as $review)--}}
+{{--                            <li class="media">--}}
+{{--                                <img class="mr-3" src="https://getstisla.com/dist/img/example-image-50.jpg" alt="Generic placeholder image">--}}
+{{--                                <div class="media-body">--}}
+{{--                                    <h5 class="mt-0 mb-1">{{ $review->user->username }}</h5>--}}
+{{--                                    <span>--}}
+{{--                                        @for($i = 1; $i <= 5; $i++)--}}
+{{--                                            <i class="fa fa-star" @if ($i <= $review->star) style="color: darkorange;" @endif></i>--}}
+{{--                                        @endfor--}}
+{{--                                    </span>--}}
+{{--                                    <p>--}}
+{{--                                        {{ $review->description }}--}}
+{{--                                    </p>--}}
+{{--                                </div>--}}
+{{--                            </li>--}}
+{{--                        @empty--}}
+{{--                            <li class="media">--}}
+{{--                                <div class="media-body">--}}
+{{--                                    <p>--}}
+{{--                                        No Review--}}
+{{--                                    </p>--}}
+{{--                                </div>--}}
+{{--                            </li>--}}
+{{--                        @endforelse--}}
+{{--                    </ul>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
 @endsection
 
 @push('stack-script')

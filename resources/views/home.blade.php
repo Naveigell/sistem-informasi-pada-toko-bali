@@ -118,14 +118,26 @@
 
                         /* Add a blue color to the author */
                         .author {color: cornflowerblue;}
+
+                        .testimonial-stars {
+                            font-size: 17px;
+                        }
                     </style>
 
                     <div class="slideshow-container">
 
                         @foreach($testimonials as $testimonial)
                             <div class="mySlides" style="font-size: 25px;">
+                                <div class="mb-4">
+                                    <img src="{{ $testimonial->user->avatar_url }}" class="rounded-circle" alt="" style="width: 150px; height: 150px;">
+                                </div>
                                 <q>{{ $testimonial->description }}</q>
-                                <p class="author mt-5">- Anonim</p>
+                                <p class="author mt-5">- {{ $testimonial->censored_username }}</p>
+                                <p>
+                                    @for($i = 1; $i <= 5; $i++)
+                                        <i class="fa fa-star testimonial-stars" @if ($i <= $testimonial->star) style="color: darkorange;" @endif></i>
+                                    @endfor
+                                </p>
                             </div>
                         @endforeach
 

@@ -19,8 +19,8 @@
                         @isset($customModalFooter)
                             {!! $customModalFooter !!}
                         @else
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
-                            <button class="btn btn-primary"><i class="fa fa-save" aria-hidden="true"></i> Simpan</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <button class="btn btn-primary"><i class="fa fa-save" aria-hidden="true"></i> Save</button>
                         @endisset
                     </div>
                 </form>
