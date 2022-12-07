@@ -128,9 +128,11 @@
 
                         @foreach($testimonials as $testimonial)
                             <div class="mySlides" style="font-size: 25px;">
-                                <div class="mb-4">
-                                    <img src="{{ $testimonial->user->avatar_url }}" class="rounded-circle" alt="" style="width: 150px; height: 150px;">
-                                </div>
+                                @if ($testimonial->user)
+                                    <div class="mb-4">
+                                        <img src="{{ $testimonial->user->avatar_url }}" class="rounded-circle" alt="" style="width: 150px; height: 150px;">
+                                    </div>
+                                @endif
                                 <q>{{ $testimonial->description }}</q>
                                 <p class="author mt-5">- {{ $testimonial->censored_username }}</p>
                                 <p>
