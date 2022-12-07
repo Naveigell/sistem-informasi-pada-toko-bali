@@ -79,22 +79,29 @@
                                                 <label for="shipping-service">Shipping Service</label>
                                                 <input type="text" class="form-control" name="shipping-service" id="shipping-service" disabled value="{{ $shipping->shipping_service }}">
                                             </div>
-                                            <div class="form-group">
-                                                <label for="province">Province</label>
-                                                <input type="text" class="form-control" name="province" id="province" disabled value="{{ $shipping->destination_details ? $shipping->destination_details['province'] : '-' }}">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="city">City</label>
-                                                <input type="text" class="form-control" name="city" id="city" disabled value="{{ $shipping->destination_details ? $shipping->destination_details['city_name'] : $shipping->area->area }}">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="courier">Courier</label>
-                                                <input type="text" class="form-control" name="courier" id="courier" disabled value="{{ $shipping->courier ?? 'Our Courier' }}">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="zip">Zip</label>
-                                                <input type="text" class="form-control" name="zip" id="zip" disabled value="{{ $shipping->zip ?? '-' }}">
-                                            </div>
+                                            @if ($shipping->shipping_service == \App\Models\Shipping::SERVICE_REGULAR)
+                                                <div class="form-group">
+                                                    <label for="province">Province</label>
+                                                    <input type="text" class="form-control" name="province" id="province" disabled value="{{ $shipping->destination_details ? $shipping->destination_details['province'] : '-' }}">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="city">City</label>
+                                                    <input type="text" class="form-control" name="city" id="city" disabled value="{{ $shipping->destination_details ? $shipping->destination_details['city_name'] : $shipping->area->area }}">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="courier">Courier</label>
+                                                    <input type="text" class="form-control" name="courier" id="courier" disabled value="{{ $shipping->courier ?? 'Our Courier' }}">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="zip">Zip</label>
+                                                    <input type="text" class="form-control" name="zip" id="zip" disabled value="{{ $shipping->zip ?? '-' }}">
+                                                </div>
+                                            @else
+                                                <div class="form-group">
+                                                    <label for="shipping-service">Area</label>
+                                                    <input type="text" class="form-control" name="area" id="area" disabled value="{{ $shipping->area->area }}">
+                                                </div>
+                                            @endif
                                             @if ($shipping->payment && $shipping->shipping_status)
                                                 <div class="form-group">
                                                     <label for="delivery_status">Delivery Status</label>

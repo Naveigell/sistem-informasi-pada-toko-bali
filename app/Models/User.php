@@ -81,7 +81,7 @@ class User extends Authenticatable
 
     public function setAvatarAttribute($value)
     {
-        if (is_string($value)) {
+        if (is_string($value) || is_null($value)) {
             $this->attributes['avatar'] = $value;
         } else if ($value instanceof UploadedFile) {
             $filename = $value->hashName();

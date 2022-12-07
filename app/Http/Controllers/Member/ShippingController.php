@@ -62,7 +62,11 @@ class ShippingController extends Controller
      */
     public function edit(Shipping $shipping)
     {
-        $this->appendRajaOngkir($shipping);
+        $shipping->load('orders.product.image', 'payment', 'user', 'area');
+
+        if (in_array($shipping->shipping_service, [Shipping::SERVICE_REGULAR])) {
+            $this->appendRajaOngkir($shipping);
+        }
 
         return view('member.pages.account.shipping.form', compact('shipping'));
     }

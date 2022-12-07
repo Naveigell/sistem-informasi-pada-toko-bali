@@ -44,6 +44,9 @@
                         <div class="card">
                             <div class="card-body">
                                 @foreach($shipping->orders as $order)
+                                    @if ($order->product_id != $product->id)
+                                        @continue
+                                    @endif
                                     <div class="row align-items-center pb-4">
                                         <div class="col-2">
                                             <img width="100px" height="100px" style="border-radius: 7px;" src="{{ $order->product->image->url }}" alt="">

@@ -33,7 +33,7 @@ class ShippingRequest extends FormRequest
             ];
 
             // if tracking id is not available yet
-            if (!$shipping->tracking_id) {
+            if (!$shipping->tracking_id && $shipping->shipping_service === Shipping::SERVICE_REGULAR) {
                 $rules["tracking_id"] = "required|string|min:3|max:191";
             }
         }

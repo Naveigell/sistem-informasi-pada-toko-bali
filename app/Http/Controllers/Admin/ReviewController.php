@@ -24,6 +24,7 @@ class ReviewController extends Controller
     public function storeReview(Review $review)
     {
         Testimonial::create([
+            "user_id"     => $review->user_id,
             "username"    => $review->user->username,
             "star"        => $review->star,
             "description" => $review->description,

@@ -15,7 +15,8 @@
                                     <h4>Avatar</h4>
                                 </div>
                                 <div class="card-body text text-center">
-                                    <div class="">
+                                    <div class="position-relative">
+                                        <i id="remove-avatar" class="fa fa-times position-absolute text text-danger" style="font-size: 20px; cursor: pointer;"></i>
                                         <img src="{{ $biodata->avatar_url }}" alt="" class="rounded-circle" style="width: 200px; height: 200px;">
                                     </div>
                                     <br>
@@ -131,6 +132,10 @@
         })
 
         $('#avatar-input-file').change(function () {
+            $('#avatar-form').submit();
+        });
+
+        $('#remove-avatar').on('click', function () {
             $('#avatar-form').submit();
         });
     </script>

@@ -60,7 +60,9 @@ class BiodataController extends Controller
 
     public function updateAvatar(BiodataAvatarRequest $request)
     {
-        auth()->user()->update($request->validated());
+        auth()->user()->update([
+            "avatar" => $request->file('avatar'),
+        ]);
 
         return redirect(route('biodatas.create'))->with('success-avatar', 'Change avatar success!');
     }

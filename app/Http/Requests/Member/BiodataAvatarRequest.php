@@ -14,7 +14,7 @@ class BiodataAvatarRequest extends FormRequest
     public function rules()
     {
         return [
-            "avatar" => "required|file|mimes:png,jpg,jpeg|max:" . (1024 * 8),
+            "avatar" => "nullable|file|mimes:png,jpg,jpeg|max:" . (1024 * 8),
         ];
     }
 }

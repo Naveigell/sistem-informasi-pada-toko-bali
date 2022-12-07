@@ -78,11 +78,11 @@
                                                 <label for="phone">Phone</label>
                                                 <input type="text" class="form-control" name="phone" id="phone" disabled value="{{ $shipping->phone }}">
                                             </div>
+                                            <div class="form-group">
+                                                <label for="shipping-service">Shipping Service</label>
+                                                <input type="text" class="form-control" name="shipping-service" id="shipping-service" disabled value="{{ $shipping->shipping_service }}">
+                                            </div>
                                             @if ($shipping->shipping_service == \App\Models\Shipping::SERVICE_REGULAR)
-                                                <div class="form-group">
-                                                    <label for="shipping-service">Shipping Service</label>
-                                                    <input type="text" class="form-control" name="shipping-service" id="shipping-service" disabled value="{{ $shipping->shipping_service }}">
-                                                </div>
                                                 <div class="form-group">
                                                     <label for="province">Province</label>
                                                     <input type="text" class="form-control" name="province" id="province" disabled value="{{ $shipping->destination_details['province'] }}">
@@ -124,23 +124,25 @@
                                                 </div>
                                             {{-- if member payment is valid --}}
                                             @else
-                                                <div class="form-group">
-                                                    <label for="tracking_id">Enter tracking ID.</label>
-                                                    <input type="text" class="form-control @error('tracking_id') is-invalid @enderror" @if ($shipping->tracking_id) disabled @endif id="tracking_id" name="tracking_id" placeholder="Ex: 0030039xxxxx" value="{{ old('tracking_id', $shipping->tracking_id) }}">
-                                                    @if($errors->has('tracking_id'))
-                                                        <div class="invalid-feedback">
-                                                            {{ $errors->first('tracking_id') }}
-                                                        </div>
-                                                    @else
-                                                        <small class="form-text text-muted">
-                                                            @if ($shipping->tracking_id)
-                                                                This tracking id will help member to track their orders.
-                                                            @else
-                                                                Please enter valid tracking id. It will help member to track their orders. <br> This will display once.
-                                                            @endif
-                                                        </small>
-                                                    @endif
-                                                </div>
+                                                @if ($shipping->shipping_service == \App\Models\Shipping::SERVICE_REGULAR)
+                                                    <div class="form-group">
+                                                        <label for="tracking_id">Enter tracking ID.</label>
+                                                        <input type="text" class="form-control @error('tracking_id') is-invalid @enderror" @if ($shipping->tracking_id) disabled @endif id="tracking_id" name="tracking_id" placeholder="Ex: 0030039xxxxx" value="{{ old('tracking_id', $shipping->tracking_id) }}">
+                                                        @if($errors->has('tracking_id'))
+                                                            <div class="invalid-feedback">
+                                                                {{ $errors->first('tracking_id') }}
+                                                            </div>
+                                                        @else
+                                                            <small class="form-text text-muted">
+                                                                @if ($shipping->tracking_id)
+                                                                    This tracking id will help member to track their orders.
+                                                                @else
+                                                                    Please enter valid tracking id. It will help member to track their orders. <br> This will display once.
+                                                                @endif
+                                                            </small>
+                                                        @endif
+                                                    </div>
+                                                @endif
                                                 <div class="form-group">
                                                     <label for="shipping_status">Shipping Status</label>
                                                     <select class="form-control @error('shipping_status') is-invalid @enderror" name="shipping_status" id="shipping_status">
