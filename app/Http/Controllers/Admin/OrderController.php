@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Notification;
 use App\Models\Shipping;
 use Illuminate\Http\Request;
 
@@ -16,6 +17,8 @@ class OrderController extends Controller
     public function index()
     {
         $shippings = Shipping::with('payment')->latest()->paginate(12);
+
+        Notification::markAllAsRead();
 
         return view('admin.pages.order_and_payment.order.index', compact('shippings'));
     }

@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\View\Composers\CartComposer;
+use App\View\Composers\NotificationComposer;
 use Illuminate\Support\ServiceProvider;
 
 class ViewServiceProvider extends ServiceProvider
@@ -25,5 +26,6 @@ class ViewServiceProvider extends ServiceProvider
     public function boot()
     {
         \View::composer(['layouts.member.header'], CartComposer::class);
+        \View::composer('layouts.admin.header', NotificationComposer::class);
     }
 }

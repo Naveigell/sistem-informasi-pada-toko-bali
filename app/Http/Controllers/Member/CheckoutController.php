@@ -6,6 +6,8 @@ use App\Helper\RajaOngkir;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Member\CheckoutRequest;
 use App\Models\Cart;
+use App\Models\Notification;
+use App\Models\NotificationOrder;
 use App\Models\Order;
 use App\Models\Shipping;
 use App\Models\ShippingCost;
@@ -81,7 +83,20 @@ class CheckoutController extends Controller
                 ];
             })->toArray();
 
-            Order::query()->insert($carts);
+            $orders = [];
+
+            $notification = Notification::create(["has_read" => 0]);
+
+            foreach ($carts as $cart) {
+                $orders[] = Order::create($cart);
+            }
+
+            foreach ($orders as $order) {
+                NotificationOrder::create([
+                    "order_id" => $order->id,
+                    "notification_id" => $notification->id,
+                ]);
+            }
 
             // delete member carts after order inserted
             Cart::memberCarts()->delete();
@@ -90,7 +105,7 @@ class CheckoutController extends Controller
         } catch (\Exception $exception) {
             DB::rollBack();
 
-            return "Something error in our server";
+            return "Something error in our server : " . $exception->getMessage();
         }
 
         return redirect(route('checkouts.success'));
